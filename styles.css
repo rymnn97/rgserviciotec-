@@ -1058,6 +1058,7 @@ a:focus {
 .carousel__track-container {
   overflow: hidden;
   border-radius: var(--border-radius-lg);
+  background-color: #000;
 }
 
 .carousel__track {
@@ -1068,14 +1069,14 @@ a:focus {
 
 .carousel__slide {
   position: relative;
+  height: 500px;
 }
 
 .carousel__image {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  object-fit: cover;
-  max-height: 500px;
+  object-fit: contain;
 }
 
 .carousel__button {
