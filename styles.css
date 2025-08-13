@@ -84,7 +84,7 @@ a:focus {
 
 /* Container */
 .container {
-  max-width: 1200px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -466,9 +466,9 @@ a:focus {
 
 .plans__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -994,10 +994,28 @@ a:focus {
 }
 
 .cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   padding: 1rem;
   background-color: var(--color-bg-primary);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--color-border);
+}
+
+.cart-item__icon {
+  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-surface);
+  border-radius: var(--border-radius-md);
+}
+
+.cart-item__details {
+  flex-grow: 1;
 }
 
 .cart-item__name {
@@ -1051,7 +1069,7 @@ a:focus {
 
 .carousel {
   position: relative;
-  max-width: 1200px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -1102,11 +1120,11 @@ a:focus {
 }
 
 .carousel__button--left {
-  left: -2.5rem;
+  left: -3.5rem;
 }
 
 .carousel__button--right {
-  right: -2.5rem;
+  right: -3.5rem;
 }
 
 .carousel__button svg {
