@@ -495,7 +495,7 @@ function initCarousel() {
     const carouselTrack = $('.carousel__track');
     if (carouselTrack.length) {
         carouselTrack.slick({
-            dots: true,
+            dots: false,
             infinite: true,
             speed: 500,
             slidesToShow: 5,
@@ -505,10 +505,6 @@ function initCarousel() {
             arrows: true,
             prevArrow: '.carousel__button--left',
             nextArrow: '.carousel__button--right',
-            dotsClass: 'carousel__nav',
-            customPaging: function(slider, i) {
-                return '<button class="carousel__indicator"></button>';
-            },
             responsive: [
                 {
                     breakpoint: 1024,
