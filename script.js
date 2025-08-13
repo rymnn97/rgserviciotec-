@@ -503,27 +503,14 @@ function initCarousel() {
             dots: false,
             infinite: true,
             speed: 500,
-            slidesToShow: 5,
+            fade: true,
+            slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: 1500,
             arrows: true,
             prevArrow: '.carousel__button--left',
-            nextArrow: '.carousel__button--right',
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                    }
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 1,
-                    }
-                }
-            ]
+            nextArrow: '.carousel__button--right'
         });
     }
 }
