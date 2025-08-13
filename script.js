@@ -498,17 +498,31 @@ function initCarousel() {
             dots: true,
             infinite: true,
             speed: 500,
-            slidesToShow: 1,
+            slidesToShow: 5,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 5000,
+            autoplaySpeed: 3000,
             arrows: true,
             prevArrow: '.carousel__button--left',
             nextArrow: '.carousel__button--right',
             dotsClass: 'carousel__nav',
             customPaging: function(slider, i) {
                 return '<button class="carousel__indicator"></button>';
-            }
+            },
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }
+            ]
         });
     }
 }
