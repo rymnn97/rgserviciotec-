@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initScrollAnimations();
     loadCartFromStorage();
+    initCarousel();
 });
 
 /**
@@ -486,6 +487,32 @@ function initLazyLoading() {
 
 // Initialize lazy loading
 document.addEventListener('DOMContentLoaded', initLazyLoading);
+
+/**
+ * Carousel functionality
+ */
+function initCarousel() {
+    const carouselTrack = $('.carousel__track');
+    if (carouselTrack.length) {
+        carouselTrack.slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            arrows: true,
+            prevArrow: '.carousel__button--left',
+            nextArrow: '.carousel__button--right',
+            dotsClass: 'carousel__nav',
+            customPaging: function(slider, i) {
+                return '<button class="carousel__indicator"></button>';
+            }
+        });
+    }
+}
+
 
 // Debounced scroll handler for performance
 function debounce(func, wait) {
