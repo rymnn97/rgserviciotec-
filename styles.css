@@ -1102,11 +1102,11 @@ a:focus {
 }
 
 .carousel__button--left {
-  left: 1rem;
+  left: -2.5rem;
 }
 
 .carousel__button--right {
-  right: 1rem;
+  right: -2.5rem;
 }
 
 .carousel__button svg {
