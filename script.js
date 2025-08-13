@@ -528,6 +528,67 @@ function initCarousel() {
     }
 }
 
+/**
+ * Custom Image Modal
+ */
+function initImageModal() {
+    const modal = document.getElementById('image-modal');
+    if (!modal) return;
+
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const modalImage = modal.querySelector('.modal-image');
+    const closeModalBtn = modal.querySelector('.modal-close');
+    const prevBtn = modal.querySelector('.modal-prev');
+    const nextBtn = modal.querySelector('.modal-next');
+    const modalOverlay = modal.querySelector('.modal-overlay');
+
+    let currentIndex = 0;
+    const images = Array.from(galleryItems).map(item => item.href);
+
+    function openModal(index) {
+        currentIndex = index;
+        modalImage.src = images[currentIndex];
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+    }
+
+    function showNextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        modalImage.src = images[currentIndex];
+    }
+
+    function showPrevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        modalImage.src = images[currentIndex];
+    }
+
+    galleryItems.forEach((item, index) => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(index);
+        });
+    });
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+    nextBtn.addEventListener('click', showNextImage);
+    prevBtn.addEventListener('click', showPrevImage);
+
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowRight') showNextImage();
+        if (e.key === 'ArrowLeft') showPrevImage();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initImageModal);
+
 
 // Debounced scroll handler for performance
 function debounce(func, wait) {
