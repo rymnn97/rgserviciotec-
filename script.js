@@ -41,6 +41,30 @@ if (form) {
   });
 }
 
+/* ---------- Carousel de trabajos realizados ---------- */
+$(document).ready(function(){
+  $('.carousel').slick({
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1500,
+    arrows: false,
+    dots: false,
+    pauseOnHover: true,
+    responsive: [{
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 3
+      }
+    }, {
+      breakpoint: 520,
+      settings: {
+        slidesToShow: 2
+      }
+    }]
+  });
+});
+
 /* ---------- Carrito muy simple para Planes ---------- */
 const cartToggle = document.getElementById('cart-toggle');
 const cartDrawer = document.getElementById('cart-drawer');
