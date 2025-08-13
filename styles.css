@@ -1069,7 +1069,7 @@ a:focus {
 
 .carousel {
   position: relative;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -1086,7 +1086,8 @@ a:focus {
 
 .carousel__slide {
   position: relative;
-  height: 500px;
+  padding: 0 10px;
+  aspect-ratio: 3 / 4;
 }
 
 .carousel__image {
