@@ -18,6 +18,8 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 </head>
 <body>
     <!-- Navigation -->
@@ -35,6 +37,9 @@
                 </li>
                 <li class="nav__item">
                     <a href="#por-que-elegirnos" class="nav__link">Por qué elegirnos</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#trabajos" class="nav__link">Trabajos</a>
                 </li>
                 <li class="nav__item">
                     <a href="#planes" class="nav__link">Planes</a>
@@ -311,6 +316,44 @@
                         Atención dedicada y asesoramiento técnico adaptado a las necesidades específicas de cada cliente.
                     </p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Realized Work Carousel -->
+    <section class="realized-work" id="trabajos">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Trabajos Realizados</h2>
+                <p class="section__subtitle">
+                    Una muestra de nuestra dedicación y calidad
+                </p>
+            </div>
+            <div class="carousel">
+                <div class="carousel__track-container">
+                    <ul class="carousel__track">
+                        <li class="carousel__slide">
+                            <img class="carousel__image" src="assets/realized-work/work1.svg" alt="Trabajo realizado 1">
+                        </li>
+                        <li class="carousel__slide">
+                            <img class="carousel__image" src="assets/realized-work/work2.svg" alt="Trabajo realizado 2">
+                        </li>
+                        <li class="carousel__slide">
+                            <img class="carousel__image" src="assets/realized-work/work3.svg" alt="Trabajo realizado 3">
+                        </li>
+                    </ul>
+                </div>
+                <button class="carousel__button carousel__button--left">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    </svg>
+                </button>
+                <button class="carousel__button carousel__button--right">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+                    </svg>
+                </button>
+                <div class="carousel__nav"></div>
             </div>
         </div>
     </section>
@@ -673,6 +716,8 @@
         </div>
     </aside>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

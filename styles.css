@@ -1043,6 +1043,97 @@ a:focus {
   flex: 1;
 }
 
+/* Realized Work Carousel */
+.realized-work {
+  padding: 5rem 0;
+  background-color: var(--color-bg-primary);
+}
+
+.carousel {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.carousel__track-container {
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+}
+
+.carousel__track {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.carousel__slide {
+  position: relative;
+}
+
+.carousel__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 500px;
+}
+
+.carousel__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  color: white;
+  transition: background-color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel__button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel__button--left {
+  left: 1rem;
+}
+
+.carousel__button--right {
+  right: 1rem;
+}
+
+.carousel__button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.carousel__nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.carousel__indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-border);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.carousel__nav .slick-active button {
+  background-color: var(--color-primary);
+}
+
 /* Animations */
 @keyframes fadeInUp {
   from {
