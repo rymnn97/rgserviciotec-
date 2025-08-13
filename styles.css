@@ -118,7 +118,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .plan-card__amount{font-size:1.6rem}
 .plan-card__period{color:var(--muted);font-weight:600}
 .plan-card__frequency{color:#b7c3d7;font-size:.95rem}
-.plan-card__features{list-style:none;margin:12px 0 10px;padding:0;display:flex;flex-direction:column;gap:.55rem}
+.plan-card__features{list-style:none;margin:12px 0 10px;padding:0;display:flex;flex-direction:column;gap:.55rem;flex-grow:1}
 .plan-card__feature{display:flex;gap:.5rem;align-items:flex-start;color:#dbe2ef}
 .plan-card__check{width:18px;height:18px;color:#86efac;flex:0 0 18px}
 .plan-card__discounts small{color:var(--muted)}
@@ -161,7 +161,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 @media (max-width:860px){ .cta-final__content{flex-direction:column;align-items:flex-start} }
 
 /* ---------- Contact ---------- */
-.contact{padding:40px 0}
+.contact{padding:20px 0}
 .contact__container{display:grid;grid-template-columns: 1.1fr .9fr; gap:22px; margin-top:22px}
 .contact__info{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);
   border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
@@ -227,12 +227,11 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .carousel{display:flex;align-items:center;justify-content:center}
 .carousel .slick-slide{margin:0 10px}
 .carousel__slide{position:relative;padding:10px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow)}
-.carousel__image{width:100%;height:auto;border-radius:calc(var(--radius) - 4px);display:block;aspect-ratio:1/1;object-fit:cover}
+.carousel__image{width:100%;height:auto;border-radius:calc(var(--radius) - 4px);display:block;aspect-ratio:3/4;object-fit:cover}
 .carousel__zoom-icon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(11,18,32,.6);color:white;opacity:0;transition:.25s opacity}
 .carousel__slide:hover .carousel__zoom-icon{opacity:1}
 .carousel__zoom-icon svg{width:36px;height:36px}
 
 .fancybox-content{
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 600px;
 }
