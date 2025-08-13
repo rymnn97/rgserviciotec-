@@ -1,571 +1,1318 @@
-/**
- * RG Servicio Técnico - Main JavaScript
- * Handles navigation, cart functionality, form validation, and animations
- */
-
-// DOM Elements
-const nav = document.getElementById('nav');
-const navToggle = document.getElementById('nav-toggle');
-const navMenu = document.getElementById('nav-menu');
-const contactForm = document.getElementById('contact-form');
-const cartToggle = document.getElementById('cart-toggle');
-const cartDrawer = document.getElementById('cart-drawer');
-const cartClose = document.getElementById('cart-close');
-const cartBackdrop = document.getElementById('cart-backdrop');
-const cartCount = document.getElementById('cart-count');
-const cartItem = document.getElementById('cart-item');
-const cartEmpty = document.getElementById('cart-empty');
-const cartTotal = document.getElementById('cart-total');
-const cartTotalAmount = document.getElementById('cart-total-amount');
-const cartItemName = document.getElementById('cart-item-name');
-const cartItemPrice = document.getElementById('cart-item-price');
-const cartClear = document.getElementById('cart-clear');
-const cartCheckout = document.getElementById('cart-checkout');
-
-// Cart state
-let selectedPlan = null;
-
-/**
- * Initialize all functionality when DOM is loaded
- */
-document.addEventListener('DOMContentLoaded', function() {
-    initNavigation();
-    initCart();
-    initContactForm();
-    initScrollAnimations();
-    loadCartFromStorage();
-    initCarousel();
-});
-
-/**
- * Navigation functionality
- */
-function initNavigation() {
-    // Mobile menu toggle
-    navToggle?.addEventListener('click', function() {
-        const isOpen = navMenu.classList.contains('show');
-        
-        if (isOpen) {
-            closeNav();
-        } else {
-            openNav();
-        }
-    });
-
-    // Close mobile menu when clicking nav links
-    const navLinks = document.querySelectorAll('.nav__link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            closeNav();
-        });
-    });
-
-    // Sticky navigation on scroll
-    let lastScrollY = window.scrollY;
-    window.addEventListener('scroll', function() {
-        const currentScrollY = window.scrollY;
-        
-        if (nav) {
-            if (currentScrollY > 100) {
-                nav.style.backgroundColor = 'rgba(26, 26, 26, 0.98)';
-            } else {
-                nav.style.backgroundColor = 'rgba(26, 26, 26, 0.95)';
-            }
-        }
-        
-        lastScrollY = currentScrollY;
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            
-            if (target) {
-                const navHeight = nav?.offsetHeight || 80;
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
+/* CSS Variables for consistent theming */
+:root {
+  --color-primary: #007acc;
+  --color-primary-dark: #005a99;
+  --color-secondary: #00a0b0;
+  --color-accent: #20b2aa;
+  --color-text: #ffffff;
+  --color-text-secondary: #b0b0b0;
+  --color-text-muted: #808080;
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-surface: #2a2a2a;
+  --color-border: #3a3a3a;
+  --color-success: #4caf50;
+  --color-warning: #ff9800;
+  --color-error: #f44336;
+  
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+  
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
 
-function openNav() {
-    navMenu?.classList.add('show');
-    navToggle?.classList.add('active');
-    navToggle?.setAttribute('aria-expanded', 'true');
-    
-    // Trap focus within menu
-    const firstLink = navMenu?.querySelector('.nav__link');
-    firstLink?.focus();
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-function closeNav() {
-    navMenu?.classList.remove('show');
-    navToggle?.classList.remove('active');
-    navToggle?.setAttribute('aria-expanded', 'false');
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/**
- * Shopping Cart functionality
- */
-function initCart() {
-    // Plan selection buttons
-    const planButtons = document.querySelectorAll('.plan-card__button');
-    planButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const planCard = this.closest('.plan-card');
-            if (planCard) {
-                const planData = {
-                    id: planCard.dataset.planId,
-                    name: planCard.dataset.planName,
-                    price: parseInt(planCard.dataset.planPrice)
-                };
-                selectPlan(planData);
-            }
-        });
-    });
-
-    // Cart toggle
-    cartToggle?.addEventListener('click', openCart);
-
-    // Close cart
-    cartClose?.addEventListener('click', closeCart);
-    cartBackdrop?.addEventListener('click', closeCart);
-
-    // Cart actions
-    cartClear?.addEventListener('click', clearCart);
-    cartCheckout?.addEventListener('click', checkout);
-
-    // Keyboard navigation for cart
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && cartDrawer?.getAttribute('aria-hidden') === 'false') {
-            closeCart();
-        }
-    });
+html {
+  scroll-behavior: smooth;
 }
 
-function selectPlan(planData) {
-    selectedPlan = planData;
-    updateCartDisplay();
-    saveCartToStorage();
-    
-    // Show success feedback
-    showNotification(`Plan ${planData.name} seleccionado`, 'success');
-    
-    // Animate cart button
-    if (cartToggle) {
-        cartToggle.style.animation = 'pulse 0.5s ease';
-        setTimeout(() => {
-            cartToggle.style.animation = '';
-        }, 500);
-    }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg-primary);
+  overflow-x: hidden;
 }
 
-function updateCartDisplay() {
-    if (selectedPlan) {
-        // Update cart count
-        if (cartCount) {
-            cartCount.textContent = '1';
-            cartCount.classList.add('show');
-        }
-
-        // Show cart item
-        if (cartItem && cartEmpty) {
-            cartItem.style.display = 'block';
-            cartEmpty.style.display = 'none';
-        }
-
-        // Update item details
-        if (cartItemName) {
-            cartItemName.textContent = `Plan ${selectedPlan.name}`;
-        }
-        
-        if (cartItemPrice) {
-            cartItemPrice.textContent = formatCurrency(selectedPlan.price);
-        }
-
-        // Update total
-        if (cartTotal && cartTotalAmount) {
-            cartTotal.style.display = 'block';
-            cartTotalAmount.textContent = formatCurrency(selectedPlan.price);
-        }
-    } else {
-        // Hide cart count
-        if (cartCount) {
-            cartCount.textContent = '0';
-            cartCount.classList.remove('show');
-        }
-
-        // Show empty state
-        if (cartItem && cartEmpty) {
-            cartItem.style.display = 'none';
-            cartEmpty.style.display = 'block';
-        }
-
-        // Hide total
-        if (cartTotal) {
-            cartTotal.style.display = 'none';
-        }
-    }
+img {
+  max-width: 100%;
+  height: auto;
 }
 
-function formatCurrency(amount) {
-    return new Intl.NumberFormat('es-AR', {
-        style: 'currency',
-        currency: 'ARS',
-        maximumFractionDigits: 0
-    }).format(amount);
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-function openCart() {
-    if (cartDrawer) {
-        cartDrawer.setAttribute('aria-hidden', 'false');
-        
-        // Focus first interactive element
-        setTimeout(() => {
-            cartClose?.focus();
-        }, 100);
-    }
+a:hover,
+a:focus {
+  color: var(--color-primary-dark);
 }
 
-function closeCart() {
-    if (cartDrawer) {
-        cartDrawer.setAttribute('aria-hidden', 'true');
-        cartToggle?.focus();
-    }
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-function clearCart() {
-    selectedPlan = null;
-    updateCartDisplay();
-    saveCartToStorage();
-    showNotification('Carrito vaciado', 'info');
+/* Section headers */
+.section__header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
-function checkout() {
-    const baseUrl = 'https://wa.me/542355544386';
-    let message;
-    
-    if (selectedPlan) {
-        const formattedPrice = formatCurrency(selectedPlan.price);
-        message = `Hola, quiero contratar el plan ${selectedPlan.name} por ${formattedPrice}/mes.`;
-    } else {
-        message = 'Hola, tengo una consulta sobre los planes de suscripción.';
-    }
-    
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `${baseUrl}?text=${encodedMessage}`;
-    
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-    closeCart();
+.section__title {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 1rem;
 }
 
-/**
- * LocalStorage functions for cart persistence
- */
-function saveCartToStorage() {
-    try {
-        localStorage.setItem('rgservicio_cart', JSON.stringify(selectedPlan));
-    } catch (error) {
-        console.warn('Could not save cart to localStorage:', error);
-    }
+.section__subtitle {
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-function loadCartFromStorage() {
-    try {
-        const savedCart = localStorage.getItem('rgservicio_cart');
-        if (savedCart) {
-            selectedPlan = JSON.parse(savedCart);
-            updateCartDisplay();
-        }
-    } catch (error) {
-        console.warn('Could not load cart from localStorage:', error);
-    }
+/* Button components */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  min-height: 48px;
 }
 
-/**
- * Contact form validation and handling
- */
-function initContactForm() {
-    if (!contactForm) return;
-
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const nombre = formData.get('nombre')?.trim();
-        const telefono = formData.get('telefono')?.trim();
-        const mensaje = formData.get('mensaje')?.trim();
-        
-        // Clear previous errors
-        clearFormErrors();
-        
-        let isValid = true;
-        
-        // Validate nombre
-        if (!nombre || nombre.length < 2) {
-            showFormError('nombre', 'Por favor ingrese un nombre válido');
-            isValid = false;
-        }
-        
-        // Validate telefono
-        if (!telefono || telefono.length < 8) {
-            showFormError('telefono', 'Por favor ingrese un teléfono válido');
-            isValid = false;
-        }
-        
-        // Validate mensaje
-        if (!mensaje || mensaje.length < 10) {
-            showFormError('mensaje', 'El mensaje debe tener al menos 10 caracteres');
-            isValid = false;
-        }
-        
-        if (isValid) {
-            // Create WhatsApp message
-            const whatsappMessage = `Hola, mi nombre es ${nombre}. Teléfono: ${telefono}. ${mensaje}`;
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-            const whatsappUrl = `https://wa.me/542355544386?text=${encodedMessage}`;
-            
-            // Open WhatsApp
-            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-            
-            // Reset form and show success message
-            this.reset();
-            showNotification('Mensaje enviado. Te contactaremos pronto.', 'success');
-        }
-    });
+.btn--primary {
+  background-color: var(--color-primary);
+  color: white;
 }
 
-function showFormError(fieldName, message) {
-    const errorElement = document.getElementById(`${fieldName}-error`);
-    const inputElement = document.getElementById(fieldName);
-    
-    if (errorElement) {
-        errorElement.textContent = message;
-        errorElement.classList.add('show');
-    }
-    
-    if (inputElement) {
-        inputElement.style.borderColor = 'var(--color-error)';
-    }
+.btn--primary:hover,
+.btn--primary:focus {
+  background-color: var(--color-primary-dark);
+  color: white;
+  transform: translateY(-1px);
 }
 
-function clearFormErrors() {
-    const errorElements = document.querySelectorAll('.form__error');
-    const inputElements = document.querySelectorAll('.form__input, .form__textarea');
-    
-    errorElements.forEach(error => {
-        error.classList.remove('show');
-        error.textContent = '';
-    });
-    
-    inputElements.forEach(input => {
-        input.style.borderColor = '';
-    });
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
-/**
- * Scroll animations and intersection observer
- */
-function initScrollAnimations() {
-    // Check if animations should be reduced
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
-                }
-            });
-        },
-        {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        }
-    );
-
-    // Observe service cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.animationDelay = `${index * 0.1}s`;
-        observer.observe(card);
-    });
-
-    // Observe pillars
-    const pillars = document.querySelectorAll('.pillar');
-    pillars.forEach((pillar, index) => {
-        pillar.style.opacity = '0';
-        pillar.style.transform = 'translateY(30px)';
-        pillar.style.animationDelay = `${index * 0.2}s`;
-        observer.observe(pillar);
-    });
-
-    // Observe plan cards
-    const planCards = document.querySelectorAll('.plan-card');
-    planCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.animationDelay = `${index * 0.1}s`;
-        observer.observe(card);
-    });
+.btn--secondary:hover,
+.btn--secondary:focus {
+  background-color: var(--color-primary);
+  color: white;
 }
 
-/**
- * Notification system
- */
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification--${type}`;
-    notification.textContent = message;
-    
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        padding: 1rem 1.5rem;
-        background-color: ${type === 'success' ? 'var(--color-success)' : type === 'error' ? 'var(--color-error)' : 'var(--color-primary)'};
-        color: white;
-        border-radius: var(--border-radius-md);
-        box-shadow: var(--shadow-lg);
-        z-index: 3000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        max-width: 300px;
-        word-wrap: break-word;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Remove after 4 seconds
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    }, 4000);
+.btn--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
 }
 
-/**
- * Performance optimizations
- */
-
-// Lazy load images when they're about to enter viewport
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
+.btn__icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
-// Initialize lazy loading
-document.addEventListener('DOMContentLoaded', initLazyLoading);
-
-/**
- * Carousel functionality
- */
-function initCarousel() {
-    const carouselTrack = $('.carousel__track');
-    if (carouselTrack.length) {
-        carouselTrack.slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 5000,
-            arrows: true,
-            prevArrow: '.carousel__button--left',
-            nextArrow: '.carousel__button--right',
-            dotsClass: 'carousel__nav',
-            customPaging: function(slider, i) {
-                return '<button class="carousel__indicator"></button>';
-            }
-        });
-    }
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1000;
+  transition: all var(--transition-normal);
 }
 
-
-// Debounced scroll handler for performance
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
+.nav__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-// Service Worker registration for offline support (optional)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // Uncomment to enable service worker
-        // navigator.serviceWorker.register('/sw.js')
-        //   .then((registration) => {
-        //     console.log('SW registered: ', registration);
-        //   })
-        //   .catch((registrationError) => {
-        //     console.log('SW registration failed: ', registrationError);
-        //   });
-    });
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
 }
 
-/**
- * Analytics and tracking (placeholder functions)
- * TODO: Implement with your preferred analytics service
- */
-function trackPlanSelection(planName) {
-    console.log('Plan selected:', planName);
-    // Example: gtag('event', 'select_item', { item_name: planName });
+.nav__logo-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-primary);
 }
 
-function trackFormSubmission() {
-    console.log('Contact form submitted');
-    // Example: gtag('event', 'form_submit', { form_name: 'contact' });
+.nav__logo-img {
+  height: 3.5rem;
+  width: auto;
+  object-fit: contain;
 }
 
-function trackWhatsAppClick(source) {
-    console.log('WhatsApp clicked from:', source);
-    // Example: gtag('event', 'click', { event_category: 'contact', event_label: source });
+.nav__menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
 }
 
-// Export functions for testing
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        formatCurrency,
-        selectPlan,
-        clearCart,
-        showNotification
-    };
+.nav__link {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.nav__link:hover,
+.nav__link:focus {
+  color: var(--color-text);
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transition: transform var(--transition-fast);
+}
+
+.nav__link:hover::after,
+.nav__link:focus::after {
+  transform: scaleX(1);
+}
+
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.nav__toggle-line {
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-text);
+  transition: all var(--transition-fast);
+}
+
+/* Hero section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  padding-top: 80px;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero__bg-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='tech-circuit' x='0' y='0' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cg fill='none' stroke='%23007acc' stroke-width='0.8' opacity='0.6'%3E%3Cpath d='M10,10 L20,10 L25,15 L35,15 L40,20 L50,20'/%3E%3Cpath d='M50,40 L40,40 L35,45 L25,45 L20,50 L10,50'/%3E%3Cpath d='M20,10 L20,20 M40,20 L40,30 M20,40 L20,50 M40,40 L40,30'/%3E%3Ccircle cx='20' cy='10' r='2' fill='%23007acc'/%3E%3Ccircle cx='40' cy='20' r='2' fill='%23007acc'/%3E%3Ccircle cx='20' cy='40' r='2' fill='%23007acc'/%3E%3Ccircle cx='40' cy='40' r='2' fill='%23007acc'/%3E%3Crect x='22' y='22' width='16' height='16' rx='2'/%3E%3Cpath d='M12,12 L18,18 M42,22 L48,28 M12,48 L18,42 M42,38 L48,32' stroke-width='1'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23tech-circuit)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  animation: circuitFlow 25s linear infinite;
+}
+
+@keyframes circuitFlow {
+  from {
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    transform: translateX(60px) translateY(60px);
+  }
+}
+
+.hero__container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.hero__content {
+  max-width: 600px;
+}
+
+.hero__title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin: 0 0 1.5rem;
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-primary) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero__subtitle {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 2rem;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+/* Services section */
+.services {
+  padding: 5rem 0;
+  background-color: var(--color-bg-secondary);
+}
+
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background-color: var(--color-bg-surface);
+  padding: 2rem;
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  transition: all var(--transition-normal);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.service-card__icon {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1.5rem;
+  color: var(--color-primary);
+}
+
+.service-card__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.service-card__title {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 1rem;
+}
+
+.service-card__description {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+
+.service-card__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-primary);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius-md);
+  font-weight: var(--font-weight-medium);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+  margin-top: auto;
+}
+
+.service-card__button:hover,
+.service-card__button:focus {
+  background-color: var(--color-primary-dark);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Why choose us section */
+.why-choose-us {
+  padding: 5rem 0;
+  background-color: var(--color-bg-primary);
+}
+
+.pillars__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
+.pillar {
+  text-align: center;
+  padding: 2rem;
+}
+
+.pillar__icon {
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto 2rem;
+  color: var(--color-primary);
+}
+
+.pillar__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pillar__title {
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 1rem;
+}
+
+.pillar__description {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  margin: 0;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Plans section */
+.plans {
+  padding: 5rem 0;
+  background-color: var(--color-bg-secondary);
+}
+
+.plans__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.plan-card {
+  background-color: var(--color-bg-surface);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  position: relative;
+  transition: all var(--transition-normal);
+  border: 2px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.plan-card--featured {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-bg-surface) 0%, rgba(0, 122, 204, 0.05) 100%);
+}
+
+.plan-card--featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+.plan-card__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  box-shadow: var(--shadow-md);
+}
+
+.plan-card__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.plan-card__icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.plan-card__title {
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 0.5rem;
+}
+
+.plan-card__subtitle {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 1.5rem;
+  line-height: 1.4;
+}
+
+.plan-card__frequency {
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(0, 122, 204, 0.1);
+  border-radius: var(--border-radius-sm);
+  display: inline-block;
+}
+
+.plan-card__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.plan-card__currency {
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+.plan-card__amount {
+  font-size: 3rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.plan-card__period {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+}
+
+.plan-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  flex-grow: 1;
+}
+
+.plan-card__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.plan-card__check {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-success);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.plan-card__discounts {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background-color: rgba(0, 122, 204, 0.05);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--color-primary);
+}
+
+.plan-card__discounts small {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.plan-card__button {
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Contact section */
+.contact {
+  padding: 5rem 0;
+  background-color: var(--color-bg-primary);
+}
+
+.contact__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact__info {
+  background-color: var(--color-bg-surface);
+  padding: 2rem;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.contact__info-title {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 2rem;
+}
+
+.contact__info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact__info-item:last-child {
+  margin-bottom: 0;
+}
+
+.contact__info-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact__info-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.contact__info-item h4 {
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  margin: 0 0 0.5rem;
+}
+
+.contact__info-item p {
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.contact__form-container {
+  background-color: var(--color-bg-surface);
+  padding: 2rem;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .contact__container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form__label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.form__input,
+.form__textarea {
+  padding: 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text);
+  font-size: 1rem;
+  transition: border-color var(--transition-fast);
+}
+
+.form__input:focus,
+.form__textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.form__textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: var(--font-family);
+}
+
+.form__error {
+  color: var(--color-error);
+  font-size: 0.875rem;
+  display: none;
+}
+
+.form__error.show {
+  display: block;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--color-bg-surface);
+  padding: 3rem 0 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.footer__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer__title {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 1rem;
+}
+
+.footer__text {
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.7;
+}
+
+.footer__text--small {
+  font-size: 0.875rem;
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.footer__social {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  padding: 0.5rem;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+}
+
+.footer__social-link:hover,
+.footer__social-link:focus {
+  color: var(--color-primary);
+  background-color: rgba(0, 122, 204, 0.1);
+}
+
+.footer__social-link svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Floating action buttons */
+.floating-actions {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 1000;
+}
+
+.floating-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+  color: white;
+}
+
+.floating-btn:hover,
+.floating-btn:focus {
+  transform: scale(1.1);
+  color: white;
+}
+
+.floating-btn--whatsapp {
+  background-color: #25d366;
+}
+
+.floating-btn--whatsapp:hover,
+.floating-btn--whatsapp:focus {
+  background-color: #128c7e;
+}
+
+.floating-btn--instagram {
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+}
+
+.floating-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Shopping cart */
+.cart-toggle {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+  z-index: 1001;
+  color: white;
+}
+
+.cart-toggle:hover,
+.cart-toggle:focus {
+  background-color: var(--color-primary-dark);
+  transform: scale(1.1);
+}
+
+.cart-toggle__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.cart-toggle__count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--color-error);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  transform: scale(0);
+  transition: transform var(--transition-fast);
+}
+
+.cart-toggle__count.show {
+  transform: scale(1);
+}
+
+.cart-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.cart-drawer[aria-hidden="false"] {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.cart-drawer__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.cart-drawer__content {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--color-bg-surface);
+  border-left: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--transition-normal);
+}
+
+.cart-drawer[aria-hidden="false"] .cart-drawer__content {
+  transform: translateX(0);
+}
+
+.cart-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cart-drawer__title {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.cart-drawer__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.cart-drawer__close:hover,
+.cart-drawer__close:focus {
+  color: var(--color-text);
+}
+
+.cart-drawer__close svg {
+  width: 24px;
+  height: 24px;
+}
+
+.cart-drawer__body {
+  flex-grow: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.cart-item {
+  padding: 1rem;
+  background-color: var(--color-bg-primary);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.cart-item__name {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 0.5rem;
+}
+
+.cart-item__price {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.cart-empty {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 2rem 0;
+}
+
+.cart-drawer__footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.cart-total {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: var(--color-bg-primary);
+  border-radius: var(--border-radius-md);
+  text-align: center;
+  color: var(--color-text);
+  font-size: 1.25rem;
+}
+
+.cart-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.cart-actions .btn {
+  flex: 1;
+}
+
+/* Realized Work Carousel */
+.realized-work {
+  padding: 5rem 0;
+  background-color: var(--color-bg-primary);
+}
+
+.carousel {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.carousel__track-container {
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+  background-color: #000;
+}
+
+.carousel__track {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.carousel__slide {
+  position: relative;
+  height: 500px;
+}
+
+.carousel__image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.carousel__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  color: white;
+  transition: background-color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel__button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel__button--left {
+  left: 1rem;
+}
+
+.carousel__button--right {
+  right: 1rem;
+}
+
+.carousel__button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.carousel__nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.carousel__indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-border);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.carousel__nav .slick-active button {
+  background-color: var(--color-primary);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .nav__menu {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-bg-secondary);
+    flex-direction: column;
+    padding: 2rem 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--transition-normal);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav__menu.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav__toggle {
+    display: flex;
+  }
+
+  .nav__toggle.active .nav__toggle-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav__toggle.active .nav__toggle-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav__toggle.active .nav__toggle-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    text-align: center;
+  }
+
+  .section__title {
+    font-size: 2rem;
+  }
+
+  .section__subtitle {
+    font-size: 1.1rem;
+  }
+
+  .services__grid,
+  .pillars__grid,
+  .plans__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer__social {
+    justify-content: center;
+  }
+
+  .floating-actions {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .floating-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cart-toggle {
+    bottom: 1rem;
+    left: 1rem;
+    width: 50px;
+    height: 50px;
+  }
+
+  .cart-drawer__content {
+    width: 100%;
+    max-width: none;
+  }
+
+  .cart-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1.1rem;
+  }
+
+  .plan-card__amount {
+    font-size: 2.5rem;
+  }
+
+  .service-card,
+  .pillar,
+  .plan-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:focus,
+a:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #666666;
+    --color-bg-surface: #333333;
+  }
+}
+
+/* Print styles */
+@media print {
+  .nav,
+  .floating-actions,
+  .cart-toggle,
+  .cart-drawer {
+    display: none !important;
+  }
+  
+  .hero {
+    padding-top: 0;
+  }
+  
+  * {
+    background: white !important;
+    color: black !important;
+  }
 }
