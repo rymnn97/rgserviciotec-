@@ -19,6 +19,7 @@ const cartTotal = document.getElementById('cart-total');
 const cartTotalAmount = document.getElementById('cart-total-amount');
 const cartItemName = document.getElementById('cart-item-name');
 const cartItemPrice = document.getElementById('cart-item-price');
+const cartItemIcon = document.getElementById('cart-item-icon');
 const cartClear = document.getElementById('cart-clear');
 const cartCheckout = document.getElementById('cart-checkout');
 
@@ -124,7 +125,8 @@ function initCart() {
                 const planData = {
                     id: planCard.dataset.planId,
                     name: planCard.dataset.planName,
-                    price: parseInt(planCard.dataset.planPrice)
+                    price: parseInt(planCard.dataset.planPrice),
+                    icon: planCard.dataset.planIcon
                 };
                 selectPlan(planData);
             }
@@ -182,6 +184,9 @@ function updateCartDisplay() {
         }
 
         // Update item details
+        if (cartItemIcon) {
+            cartItemIcon.innerHTML = selectedPlan.icon;
+        }
         if (cartItemName) {
             cartItemName.textContent = `Plan ${selectedPlan.name}`;
         }
@@ -501,7 +506,7 @@ function initCarousel() {
             slidesToShow: 5,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 3000,
+            autoplaySpeed: 1500,
             arrows: true,
             prevArrow: '.carousel__button--left',
             nextArrow: '.carousel__button--right',
