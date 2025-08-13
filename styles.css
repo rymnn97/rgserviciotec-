@@ -55,7 +55,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 }
 
 /* ---------- Hero ---------- */
-.hero{position:relative;isolation:isolate;padding:clamp(60px, 9vw, 120px) 0;background:
+.hero{position:relative;isolation:isolate;padding:clamp(40px, 6vw, 80px) 0;background:
  radial-gradient(1200px 400px at 10% -10%, rgba(59,130,246,.25), transparent 60%),
  radial-gradient(900px 360px at 90% 0%, rgba(34,211,238,.18), transparent 60%);}
 .hero__container{width:var(--container);margin:0 auto;display:grid;grid-template-columns:1.1fr;align-items:center}
@@ -104,7 +104,8 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .plans__grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:18px;margin-top:22px}
 .plan-card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
   border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow);
-  transition:.3s transform,.3s box-shadow,.3s border-color; position:relative; overflow:hidden}
+  transition:.3s transform,.3s box-shadow,.3s border-color; position:relative; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:space-between;}
 .plan-card:hover{transform:translateY(-4px); box-shadow:0 24px 46px rgba(2,6,23,.65); border-color:rgba(59,130,246,.35)}
 .plan-card--featured{background:linear-gradient(180deg, rgba(37,99,235,.16), rgba(37,99,235,.06)); border-color:rgba(59,130,246,.45)}
 .plan-card__badge{position:absolute;top:14px;right:-36px;transform:rotate(35deg);background:var(--accent);color:#06202a;
@@ -218,3 +219,14 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .cart-empty{color:var(--muted)}
 .cart-total{margin-top:.6rem}
 .cart-actions{display:flex;justify-content:space-between;gap:.6rem;margin-top:.6rem}
+
+/* ---------- Realized Work Carousel ---------- */
+.realized-work{padding:70px 0}
+.carousel-container{width:100%;overflow:hidden}
+.carousel{display:flex;align-items:center;justify-content:center}
+.carousel .slick-slide{margin:0 10px}
+.carousel__slide{position:relative;padding:10px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow)}
+.carousel__image{width:100%;height:auto;border-radius:calc(var(--radius) - 4px);display:block;aspect-ratio:1/1;object-fit:cover}
+.carousel__zoom-icon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(11,18,32,.6);color:white;opacity:0;transition:.25s opacity}
+.carousel__slide:hover .carousel__zoom-icon{opacity:1}
+.carousel__zoom-icon svg{width:36px;height:36px}
