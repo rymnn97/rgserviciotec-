@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" type="text/css" href="assets/libs/slick.css"/>
     <link rel="stylesheet" type="text/css" href="assets/libs/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/libs/jquery.fancybox.min.css"/>
 </head>
 <body>
     <!-- Navigation -->
@@ -332,26 +333,127 @@
             <div class="carousel">
                 <div class="carousel__track-container">
                     <ul class="carousel__track">
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work1.jpeg" alt="Trabajo realizado 1" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work2.jpeg" alt="Trabajo realizado 2" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work3.jpeg" alt="Trabajo realizado 3" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work4.jpeg" alt="Trabajo realizado 4" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work5.jpeg" alt="Trabajo realizado 5" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work6.jpeg" alt="Trabajo realizado 6" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work7.jpeg" alt="Trabajo realizado 7" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work8.jpeg" alt="Trabajo realizado 8" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work9.jpeg" alt="Trabajo realizado 9" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work10.jpeg" alt="Trabajo realizado 10" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work11.jpeg" alt="Trabajo realizado 11" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work12.jpeg" alt="Trabajo realizado 12" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work13.jpeg" alt="Trabajo realizado 13" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work14.jpeg" alt="Trabajo realizado 14" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work15.jpeg" alt="Trabajo realizado 15" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work16.jpeg" alt="Trabajo realizado 16" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work17.jpeg" alt="Trabajo realizado 17" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work18.jpeg" alt="Trabajo realizado 18" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work19.jpeg" alt="Trabajo realizado 19" draggable="false"></li>
-                        <li class="carousel__slide"><img class="carousel__image" src="assets/realized-work/work20.jpeg" alt="Trabajo realizado 20" draggable="false"></li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work1.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work1.jpeg" alt="Trabajo realizado 1" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work2.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work2.jpeg" alt="Trabajo realizado 2" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work3.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work3.jpeg" alt="Trabajo realizado 3" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work4.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work4.jpeg" alt="Trabajo realizado 4" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work5.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work5.jpeg" alt="Trabajo realizado 5" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work6.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work6.jpeg" alt="Trabajo realizado 6" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work7.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work7.jpeg" alt="Trabajo realizado 7" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work8.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work8.jpeg" alt="Trabajo realizado 8" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work9.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work9.jpeg" alt="Trabajo realizado 9" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work10.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work10.jpeg" alt="Trabajo realizado 10" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work11.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work11.jpeg" alt="Trabajo realizado 11" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work12.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work12.jpeg" alt="Trabajo realizado 12" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work13.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work13.jpeg" alt="Trabajo realizado 13" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work14.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work14.jpeg" alt="Trabajo realizado 14" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work15.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work15.jpeg" alt="Trabajo realizado 15" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work16.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work16.jpeg" alt="Trabajo realizado 16" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work17.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work17.jpeg" alt="Trabajo realizado 17" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work18.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work18.jpeg" alt="Trabajo realizado 18" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work19.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work19.jpeg" alt="Trabajo realizado 19" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                        <li class="carousel__slide">
+                            <a href="assets/realized-work/work20.jpeg" data-fancybox="gallery">
+                                <img class="carousel__image" src="assets/realized-work/work20.jpeg" alt="Trabajo realizado 20" draggable="false">
+                                <div class="carousel__zoom-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg></div>
+                            </a>
+                        </li>
+                    </ul>
                     </ul>
                 </div>
                 <button class="carousel__button carousel__button--left">
@@ -734,6 +836,7 @@
 
     <script src="assets/libs/jquery.min.js"></script>
     <script type="text/javascript" src="assets/libs/slick.min.js"></script>
+    <script type="text/javascript" src="assets/libs/jquery.fancybox.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
