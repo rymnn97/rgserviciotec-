@@ -122,19 +122,25 @@ if (cartCheckout){
   });
 }
 
-(function initFancybox(){
-  if (window.Fancybox) {
-    Fancybox.bind('[data-fancybox="gallery"]', {
-      Thumbs: { autoStart: true },
-      Toolbar: ['counter','zoom','slideshow','thumbs','close'],
-      Carousel: { infinite: true },
-      animated: true
-    });
-  } else if (jQuery && jQuery.fancybox) {
-    jQuery('[data-fancybox="gallery"]').fancybox({
-      buttons: ['zoom','thumbs','close'],
-      loop: true
-    });
+/* ---------- Galería con Fancybox (flechas + miniaturas) ---------- */
+(function(){
+  function initFancybox(){
+    if (window.jQuery && jQuery.fancybox) {
+      jQuery('[data-fancybox="gallery"]').fancybox({
+        loop: true,
+        infobar: true, // 1/N
+        buttons: ['zoom','slideShow','thumbs','close'],
+        thumbs: { autoStart: true },
+        animationEffect: 'zoom',
+        transitionEffect: 'fade'
+      });
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive'){
+    setTimeout(initFancybox, 0);
+  } else {
+    document.addEventListener('DOMContentLoaded', initFancybox);
+    window.addEventListener('load', initFancybox);
   }
 })();
 
