@@ -39,7 +39,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 /* ---------- Nav (sticky + glass) ---------- */
 .nav{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.55);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
 .nav__container{width:var(--container);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
-.nav__logo-img{height:40px;width:auto;filter:drop-shadow(0 6px 16px rgba(0,0,0,.35))}
+.nav__logo-img{height:36px;width:auto;filter:drop-shadow(0 6px 16px rgba(0,0,0,.35))}
 .nav__menu{display:flex;gap:1.2rem;list-style:none;margin:0;padding:0}
 .nav__link{color:var(--text);text-decoration:none;font-weight:600;opacity:.85}
 .nav__link:hover{opacity:1;color:var(--accent)}
@@ -55,7 +55,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 }
 
 /* ---------- Hero ---------- */
-.hero{position:relative;isolation:isolate;padding:clamp(20px, 4vw, 60px) 0;background:
+.hero{position:relative;isolation:isolate;padding: clamp(8px, 2.5vw, 28px) 0;background:
  radial-gradient(1200px 400px at 10% -10%, rgba(59,130,246,.25), transparent 60%),
  radial-gradient(900px 360px at 90% 0%, rgba(34,211,238,.18), transparent 60%);}
 .hero__container{width:var(--container);margin:0 auto;display:grid;grid-template-columns:1.1fr;align-items:center}
@@ -85,7 +85,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .why-choose-us{padding:64px 0}
 .pillars__grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:18px;margin-top:22px}
 .pillar{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-  border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);transition:.3s transform,.3s box-shadow}
+  border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);transition:.3s transform,.3s box-shadow}
 .pillar:hover{transform:translateY(-4px); box-shadow:0 20px 40px rgba(2,6,23,.6)}
 .pillar__icon{width:44px;height:44px;display:grid;place-items:center;background:rgba(34,211,238,.14);
   border:1px solid rgba(34,211,238,.28); color:#a5f3fc;border-radius:12px;margin-bottom:.6rem}
@@ -118,7 +118,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .plan-card__amount{font-size:1.6rem}
 .plan-card__period{color:var(--muted);font-weight:600}
 .plan-card__frequency{color:#b7c3d7;font-size:.95rem}
-.plan-card__features{list-style:none;margin:12px 0 10px;padding:0;display:flex;flex-direction:column;gap:.55rem;flex-grow:1}
+.plan-card__features{list-style:none;margin:12px 0 10px;padding:0;display:flex;flex-direction:column;gap:.55rem}
 .plan-card__feature{display:flex;gap:.5rem;align-items:flex-start;color:#dbe2ef}
 .plan-card__check{width:18px;height:18px;color:#86efac;flex:0 0 18px}
 .plan-card__discounts small{color:var(--muted)}
@@ -161,21 +161,20 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 @media (max-width:860px){ .cta-final__content{flex-direction:column;align-items:flex-start} }
 
 /* ---------- Contact ---------- */
-.contact{padding:20px 0}
-.contact__container{display:grid;grid-template-columns: 1.1fr .9fr; gap:22px; margin-top:22px}
+.contact{padding: 28px 0;grid-template-columns: .9fr 1.1fr; gap:18px; margin-top:22px}
 .contact__info{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);
-  border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
 .contact__info-title{margin:.2rem 0 .6rem}
-.contact__info-item{display:flex;gap:.8rem;align-items:flex-start;padding:.6rem 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.contact__info-item{display:flex;gap:.8rem;align-items:flex-start;padding: .45rem 0;border-bottom:1px dashed rgba(255,255,255,.08)}
 .contact__info-item:last-child{border-bottom:0}
-.contact__info-icon{width:40px;height:40px;display:grid;place-items:center;background:rgba(255,255,255,.06);border-radius:12px}
+.contact__info-icon{width: 36px;height:36px;display:grid;place-items:center;background:rgba(255,255,255,.06);border-radius:12px}
 .contact__form{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);
-  border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
 .form-group{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
 .form__label{font-weight:600}
 .form__input,.form__textarea{
   background:#0b1220;border:1px solid rgba(255,255,255,.08);border-radius:12px;color:var(--text);
-  padding:.8rem .9rem;font-size:1rem;outline:none;transition:.2s border-color,.2s box-shadow
+  padding:.7rem .85rem;font-size:1rem;outline:none;transition:.2s border-color,.2s box-shadow
 }
 .form__input:focus,.form__textarea:focus{border-color:rgba(59,130,246,.6);box-shadow:0 0 0 4px rgba(59,130,246,.18)}
 .form__error{color:var(--danger);font-size:.9rem;height:1rem}
@@ -227,11 +226,91 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .carousel{display:flex;align-items:center;justify-content:center}
 .carousel .slick-slide{margin:0 10px}
 .carousel__slide{position:relative;padding:10px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow)}
-.carousel__image{width:100%;height:auto;border-radius:calc(var(--radius) - 4px);display:block;aspect-ratio:3/4;object-fit:cover}
+.carousel__image{width:100%;height:auto;border-radius:calc(var(--radius) - 4px);display:block;aspect-ratio:1/1;object-fit:cover}
 .carousel__zoom-icon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(11,18,32,.6);color:white;opacity:0;transition:.25s opacity}
 .carousel__slide:hover .carousel__zoom-icon{opacity:1}
 .carousel__zoom-icon svg{width:36px;height:36px}
 
 .fancybox-content{
-    max-width: 600px;
+    max-width: 80%;
+    max-height: 80%;
 }
+
+/* ----- Fancybox: mantener proporciones + thumbs abajo ----- */
+.fancybox-slide--image .fancybox-content{
+  width:auto; height:auto; max-width:85vw; max-height:85vh; border-radius:12px;
+}
+.fancybox-image{ width:100%; height:100%; object-fit:contain; }
+.fancybox-thumbs{ bottom:0; top:auto; height:110px; } /* tira de miniaturas abajo */
+.fancybox-show-thumbs .fancybox-inner{ right:0; bottom:110px; } /* que no tape la imagen */
+
+/* Contact equal heights & compact */
+.contact__container{align-items:stretch}
+.contact__info,.contact__form-container{height:100%}
+.contact__form-container{display:flex}
+.contact__form{display:flex;flex-direction:column;height:100%}
+.contact__form .form-group:last-of-type{flex:1}
+.contact__form button[type="submit"]{margin-top:auto;width:100%}
+
+/* Fancybox sizing without distortion */
+.fancybox__container .fancybox__image{object-fit:contain !important}
+.fancybox__container .fancybox__slide{padding:0}
+.fancybox__container .fancybox__content{max-width:85vw;max-height:85vh}
+/* v3 fallback */
+.fancybox-slide--image .fancybox-content{max-width:85vw;max-height:85vh}
+.fancybox-image{object-fit:contain}
+
+/* Plans: stick discounts+button to bottom */
+.plans__grid{align-items:stretch}
+.plan-card{display:flex;flex-direction:column;height:100%}
+.plan-card__discounts{margin-top:auto}
+.plan-card__button{width:100%;margin-top:.7rem}
+
+/* Header spacing between logo and nav */
+.nav__container{column-gap:24px}
+.nav__logo{margin-right:12px}
+
+
+/* --- Contact compact v3 --- */
+.contact{padding: 28px 0; align-items:stretch}
+.contact__info, .contact__form{padding:16px}
+.contact__info-item{padding: .45rem 0; gap:.6rem}
+.contact__info-icon{width: 36px;height:36px}
+.form-group{margin-bottom:.7rem; gap:.3rem}
+.contact__form-container{display:flex; height:100%}
+.contact__form{display:flex; flex-direction:column; height:100%}
+.contact__form .btn[type="submit"]{margin-top:auto}
+
+
+/* --- Fancybox modal smaller + aspect ratio --- */
+/* Fancybox v3 */
+.fancybox-content{max-width:65vw;max-height:65vh;width:auto;height:auto;border-radius:14px}
+.fancybox-image{width:100%;height:100%;object-fit:contain}
+/* Fancybox v4 */
+.fancybox__content{max-width:65vw;max-height:65vh}
+.fancybox__image{width:100%;height:100%;object-fit:contain}
+/* Ensure thumbs bar stays below and content not overlapped */
+.fancybox__thumbs{max-height:18vh}
+
+
+/* --- Nav logo spacing --- */
+.nav__container{column-gap:18px}
+.nav__logo{margin-right:8px}
+
+/* --- Modal compacto y sin distorsión (Fancybox v3 y v4) --- */
+.fancybox__content{max-width:60vw;max-height:60vh;width:auto;height:auto}
+.fancybox__image{width:100%;height:100%;object-fit:contain}
+/* Fallback v3 */
+.fancybox-slide--image .fancybox-content{max-width:60vw;max-height:60vh;width:auto;height:auto}
+.fancybox-image{width:100%;height:100%;object-fit:contain}
+/* Miniaturas debajo sin tapar la imagen */
+.fancybox__thumbs{order:2}
+.fancybox__toolbar{order:1}
+
+/* --- Contacto: columnas igual altura y botón al fondo --- */
+.contact__container{align-items:stretch}
+.contact__info,.contact__form-container{height:100%}
+.contact__form-container{display:flex}
+.contact__form{display:flex;flex-direction:column;height:100%}
+.contact__form .form-group:last-of-type{margin-bottom:auto}
+.contact__form button[type="submit"]{margin-top:auto}
