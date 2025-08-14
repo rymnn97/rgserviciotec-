@@ -182,7 +182,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .form__error{color:var(--danger);font-size:.9rem;height:1rem}
 .contact__form .btn{margin-top:auto}
 
-@media (max-width:1780px){
+@media (max-width:1960px){
   .contact__container{grid-template-columns:1fr}
 }
 
@@ -197,7 +197,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .footer__bottom{margin-top:18px;border-top:1px dashed rgba(255,255,255,.08);padding-top:14px}
 .footer__text--small{color:#94a3b8;font-size:.94rem}
 
-@media (max-width:980px){
+@media (max-width:1960px){
   .footer__content{grid-template-columns:1fr}
 }
 
