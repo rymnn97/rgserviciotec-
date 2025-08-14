@@ -252,8 +252,6 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
   grid-template-columns: 1fr 1fr;
   align-items:stretch;
   gap: 12px;
-  max-width: 60%;
-  margin: 0 auto;
 }
 
 @media (max-width: 980px){
