@@ -55,7 +55,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 }
 
 /* ---------- Hero ---------- */
-.hero{position:relative;isolation:isolate;padding-top: 0; padding-bottom: 2rem; background:
+.hero{position:relative;isolation:isolate;padding: 0; background:
  radial-gradient(1200px 400px at 10% -10%, rgba(59,130,246,.25), transparent 60%),
  radial-gradient(900px 360px at 90% 0%, rgba(34,211,238,.18), transparent 60%);}
 .hero__container{width:var(--container);margin:0 auto;display:grid;grid-template-columns:1.1fr;align-items:center}
