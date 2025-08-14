@@ -36,6 +36,8 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 .btn--small{padding:.65rem .9rem;font-size:.95rem}
 .btn__icon{width:1.2rem;height:1.2rem}
 
+[id] { scroll-margin-top: 72px; } /* altura aproximada del header */
+
 /* ---------- Nav (sticky + glass) ---------- */
 .nav{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.55);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
 .nav__container{width:var(--container);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
@@ -55,16 +57,31 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 }
 
 /* ---------- Hero ---------- */
-.hero{position:relative;isolation:isolate;padding: 0; background:
- radial-gradient(1200px 400px at 10% -10%, rgba(59,130,246,.25), transparent 60%),
- radial-gradient(900px 360px at 90% 0%, rgba(34,211,238,.18), transparent 60%);}
+.hero{
+  position: relative;
+  padding-block: clamp(12px, 3vw, 28px); /* antes era mucho mayor */
+  min-height: auto !important;
+  height: auto !important;
+  overflow: hidden; /* evita que el margen del primer hijo “empuje” */
+  background:
+    radial-gradient(1200px 400px at 10% -10%, rgba(59,130,246,.25), transparent 60%),
+    radial-gradient(900px 360px at 90% 0%, rgba(34,211,238,.18), transparent 60%);
+}
 .hero__container{width:var(--container);margin:0 auto;display:grid;grid-template-columns:1.1fr;align-items:center}
 .hero__title{font-family:Poppins, Inter, sans-serif; font-weight:800; letter-spacing:.2px; margin:0 0 .5rem; font-size:clamp(1.9rem, 3.5vw, 3rem)}
 .hero__subtitle{color:var(--muted);margin:0 0 1.1rem;font-size:clamp(1rem, 1.3vw, 1.1rem);max-width:60ch}
 .hero__actions{display:flex;gap:.8rem;flex-wrap:wrap}
 
+/* Evita que el primer elemento del hero agregue margen superior colapsado */
+.hero > *:first-child{ margin-top: 0 !important; }
+.hero :is(h1,h2){ margin-block-start: 0; } /* títulos sin empuje extra */
+
 /* ---------- Services ---------- */
-.services{padding:64px 0;background:linear-gradient(180deg, transparent, rgba(255,255,255,.02))}
+.services{
+  margin-top: 0 !important;
+  padding: clamp(8px, 2vw, 16px) 0 64px;
+  background:linear-gradient(180deg, transparent, rgba(255,255,255,.02));
+}
 .services__grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:18px;margin-top:22px}
 .service-card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
   border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); transition:.3s transform,.3s box-shadow}
