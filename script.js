@@ -121,3 +121,57 @@ if (cartCheckout){
     window.open(`https://wa.me/542355544386?text=${texto}`, '_blank');
   });
 }
+
+/* ---------- Galería con Fancybox (flechas + miniaturas) ---------- */
+(function(){
+  function initFancybox(){
+    if (window.jQuery && jQuery.fancybox) {
+      jQuery('[data-fancybox="gallery"]').fancybox({
+        loop: true,
+        infobar: true, // 1/N
+        buttons: ['zoom','slideShow','thumbs','close'],
+        thumbs: { autoStart: true },
+        animationEffect: 'zoom',
+        transitionEffect: 'fade'
+      });
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive'){
+    setTimeout(initFancybox, 0);
+  } else {
+    document.addEventListener('DOMContentLoaded', initFancybox);
+    window.addEventListener('load', initFancybox);
+  }
+})();
+
+
+/* ---------- Carousel de trabajos realizados ---------- */
+$(function(){
+  if ($('.carousel').length && $.fn.slick){
+    $('.carousel').slick({
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 1500,
+      arrows: false,
+      dots: false,
+      pauseOnHover: true,
+      responsive: [
+        { breakpoint: 980, settings: { slidesToShow: 3 } },
+        { breakpoint: 640, settings: { slidesToShow: 2 } }
+      ]
+    });
+  }
+
+  // Fancybox v4 binding with thumbnails
+  if (window.Fancybox){
+    Fancybox.bind('[data-fancybox="gallery"]', {
+      Thumbs: { autoStart: true },
+      Toolbar: {
+        display: ['counter','zoom','slideshow','thumbs','close']
+      },
+      Carousel: { infinite: true },
+      Images: { zoom: true }
+    });
+  }
+});
