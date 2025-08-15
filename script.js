@@ -175,3 +175,35 @@ $(function(){
     });
   }
 });
+
+
+/* ---------- Carousel (nueva versión) ---------- */
+document.addEventListener('DOMContentLoaded', function(){
+  if (window.jQuery && jQuery.fn.slick){
+    var $ = window.jQuery;
+    if ($('.carousel').length && !$('.carousel').hasClass('slick-initialized')){
+      $('.carousel').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 1500,
+        arrows: false,
+        dots: false,
+        pauseOnHover: true,
+        responsive: [
+          { breakpoint: 1200, settings: { slidesToShow: 4 } },
+          { breakpoint: 980,  settings: { slidesToShow: 3 } },
+          { breakpoint: 640,  settings: { slidesToShow: 2 } }
+        ]
+      });
+    }
+  }
+  if (window.Fancybox){
+    Fancybox.bind('[data-fancybox="gallery"]', {
+      Thumbs: { autoStart: true },
+      Toolbar: { display: ['counter','zoom','slideshow','thumbs','close'] },
+      Carousel: { infinite: true },
+      Images: { zoom: true }
+    });
+  }
+});
