@@ -56,9 +56,8 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 /* ---------- Hero ---------- */
 .hero{position:relative;isolation:isolate;padding: 0; background:
  radial-gradient(1200px 400px at 10% -10%, rgba(79, 70, 229, .15), transparent 70%),
- radial-gradient(900px 360px at 90% 0%, rgba(129, 140, 248, .12), transparent 70%);
- min-height: 90vh; display: grid; place-items: center;}
-.hero__container{width:var(--container);margin:0 auto;display:grid;grid-template-columns:1.1fr;align-items:center}
+ radial-gradient(900px 360px at 90% 0%, rgba(129, 140, 248, .12), transparent 70%);}
+.hero__container{width:var(--container);margin:0 auto;display:grid;grid-template-columns:1.1fr;align-items:center;padding: 4rem 0;}
 .hero__title{font-family:Poppins, Inter, sans-serif; font-weight:800; letter-spacing:.2px; margin:0 0 .5rem; font-size:clamp(1.9rem, 3.5vw, 3rem)}
 .hero__subtitle{color:var(--muted);margin:0 0 1.1rem;font-size:clamp(1rem, 1.3vw, 1.1rem);max-width:60ch}
 .hero__actions{display:flex;gap:.8rem;flex-wrap:wrap}
