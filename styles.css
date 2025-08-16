@@ -78,8 +78,8 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
 
 /* --- Botón de "Más información" más pequeño y ajustado al texto --- */
 .service-card > .btn {
-  padding: .6rem .9rem; /* Reducción de ~30% */
-  font-size: .9rem;
+  padding: .5rem .7rem; /* Reducción adicional de ~20% */
+  font-size: .75rem;
   align-self: flex-start; /* Evita que el botón se estire al 100% del ancho */
 }
 
@@ -491,7 +491,7 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
   margin: 0 auto;
 }
 .cta-buttons {
-  margin-top: 1.8rem;
+  margin-top: 1rem;
 }
 
 
