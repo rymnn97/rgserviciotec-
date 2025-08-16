@@ -74,7 +74,13 @@ body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-
   border:1px solid rgba(59,130,246,.25); color:#93c5fd;border-radius:12px;margin-bottom:.6rem}
 .service-card__title{margin:.2rem 0 .2rem;font-size:1.05rem}
 .service-card__description{color:var(--muted);margin:0;font-size:.98rem; flex-grow: 1;}
-.service-card__button{margin-top:1rem}
+
+/* --- Botón de "Más información" más pequeño y ajustado al texto --- */
+.service-card > .btn {
+  padding: .6rem .9rem; /* Reducción de ~30% */
+  font-size: .9rem;
+  align-self: flex-start; /* Evita que el botón se estire al 100% del ancho */
+}
 
 @media (max-width: 980px){
   .services__grid{grid-template-columns:repeat(2, 1fr)}
