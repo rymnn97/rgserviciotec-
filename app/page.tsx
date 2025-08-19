@@ -26,6 +26,8 @@ import {
   Instagram,
   ShoppingCart,
   Trash2,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -180,13 +182,26 @@ export default function LandingPage() {
   }
 
   const openImageModal = (imageSrc: string) => {
+    const imageIndex = carouselImages.findIndex((img) => img === imageSrc)
     setSelectedImage(imageSrc)
+    setCurrentImageIndex(imageIndex >= 0 ? imageIndex : 0)
     setShowImageModal(true)
   }
 
   const closeImageModal = () => {
     setShowImageModal(false)
     setSelectedImage("")
+  }
+
+  const nextModalImage = () => {
+    const nextIndex = (carouselImages.findIndex((img) => img === selectedImage) + 1) % carouselImages.length
+    setSelectedImage(carouselImages[nextIndex])
+  }
+
+  const prevModalImage = () => {
+    const currentIndex = carouselImages.findIndex((img) => img === selectedImage)
+    const prevIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length
+    setSelectedImage(carouselImages[prevIndex])
   }
 
   const nextImage = () => {
@@ -437,6 +452,15 @@ export default function LandingPage() {
             className="relative max-w-[90vw] max-h-[90vh] md:max-w-[70vw] md:max-h-[80vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white hover:bg-black/70 z-10"
+              onClick={prevModalImage}
+            >
+              <ChevronLeft className="size-6" />
+            </Button>
+
             <Image
               src={selectedImage || "/placeholder.svg"}
               width={1200}
@@ -444,6 +468,16 @@ export default function LandingPage() {
               alt="Imagen ampliada"
               className="max-w-full max-h-full w-auto h-auto object-contain rounded-lg md:max-w-[60vw] md:max-h-[70vh]"
             />
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white hover:bg-black/70 z-10"
+              onClick={nextModalImage}
+            >
+              <ChevronRight className="size-6" />
+            </Button>
+
             <Button
               variant="ghost"
               size="icon"
