@@ -558,7 +558,7 @@ export default function LandingPage() {
                   }
                 >
                   <WhatsAppIcon className="mr-2 size-5" />
-                  WhatsApp
+                  Escríbenos por WhatsApp
                 </Button>
                 <Button
                   size="lg"
