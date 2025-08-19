@@ -59,6 +59,7 @@ export default function LandingPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [showImageModal, setShowImageModal] = useState(false)
   const [selectedImage, setSelectedImage] = useState("")
+  const [isAnnual, setIsAnnual] = useState(false) // Added state for annual/monthly toggle
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -292,6 +293,59 @@ export default function LandingPage() {
     )
   }
 
+  const plans = [
+    {
+      name: "Prevención Esencial",
+      monthlyPrice: 13800,
+      annualPrice: 138000,
+      frequency: isAnnual ? "Anual" : "Trimestral",
+      description: "Ideal para prevenir fallas y mantener equipos en buen estado",
+      features: [
+        "Limpieza interna y externa de PCs y notebooks",
+        "Revisión física y cambio pasta térmica anual",
+        "Actualizaciones de software y parches",
+        "Informe de estado general de cada equipo",
+      ],
+      discounts: ["5 equipos: 5%", "10 equipos: 10%", "20+ equipos: 20%"],
+      cta: "Seleccionar",
+      icon: "💼",
+    },
+    {
+      name: "Rendimiento Óptimo",
+      monthlyPrice: 37600,
+      annualPrice: 376000,
+      frequency: isAnnual ? "Anual" : "Bimestral",
+      description: "Perfecto para uso diario y máximo rendimiento",
+      features: [
+        "Todo lo del Plan Prevención Esencial",
+        "Optimización de sistema operativo",
+        "Mantenimiento preventivo de impresoras",
+        "Reemplazo piezas menores sin costo",
+        "Respaldo básico de información",
+      ],
+      discounts: ["5 equipos: 5%", "10 equipos: 10%", "20+ equipos: 20%"],
+      cta: "Seleccionar",
+      popular: true,
+      icon: "⚡",
+    },
+    {
+      name: "Soporte Total",
+      monthlyPrice: 95800,
+      annualPrice: 958000,
+      frequency: isAnnual ? "Anual + Asistencia Remota" : "Mensual + Asistencia Remota",
+      description: "Para empresas que necesitan prioridad y mínima interrupción",
+      features: [
+        "Todo lo del Plan Rendimiento Óptimo",
+        "Asistencia remota (3 intervenciones/mes)",
+        "Respuesta prioritaria en menos de 24hs",
+        "Monitoreo preventivo continuo",
+      ],
+      discounts: ["5 equipos: 5%", "10 equipos: 10%", "20+ equipos: 20%"],
+      cta: "Seleccionar",
+      icon: "🚀",
+    },
+  ]
+
   return (
     <div className="flex min-h-[100dvh] flex-col">
       <header
@@ -520,42 +574,44 @@ export default function LandingPage() {
       )}
 
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="w-full py-20 md:py-32 lg:py-40 overflow-hidden">
-          <div className="container px-4 md:px-6 relative">
-            <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-
+        {/* Hero Section - REMOVED BACKGROUND */}
+        <section className="relative w-full py-20 md:py-32">
+          <div className="container px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center max-w-4xl mx-auto mb-12"
+              transition={{ duration: 0.8 }}
+              className="flex flex-col items-center space-y-8 text-center"
             >
               <Badge
-                className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                className="rounded-full px-4 py-1.5 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
                 variant="secondary"
               >
                 Servicio Técnico Profesional
               </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-foreground">
-                Hablemos de lo que necesita <span className="text-blue-600">tu equipo</span>
-              </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                Especialistas en reparación de PC, notebooks, consolas y celulares. Servicio técnico profesional con
-                garantía y trato personalizado.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="space-y-4">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-foreground">
+                  Hablemos de lo que necesita <span className="text-blue-600">tu equipo</span>
+                </h1>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                  Especialistas en reparación de PC, notebooks, consolas y celulares. Servicio técnico profesional con
+                  garantía y trato personalizado.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 mt-4">
                 <Button
                   size="lg"
                   className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
                   onClick={() =>
                     window.open(
-                      generateWhatsAppLink("Hola, me gustaría obtener más información sobre sus servicios técnicos."),
+                      generateWhatsAppLink(
+                        "¡Hola! Me interesa contactarlos para conocer más sobre sus servicios técnicos.",
+                      ),
                       "_blank",
                     )
                   }
                 >
-                  <WhatsAppIcon className="mr-2 size-5" />
+                  <WhatsAppIcon className="mr-2" />
                   Escríbenos por WhatsApp
                 </Button>
                 <Button
@@ -569,80 +625,25 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className={`rounded-full h-12 px-8 text-base ${
-                    theme === "dark" ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
-                  }`}
+                  className="rounded-full h-12 px-8 text-base bg-transparent"
                   onClick={scrollToPlans}
                 >
                   Ver Planes
                 </Button>
               </div>
-              <div className="flex items-center justify-center gap-4 mt-6 text-sm text-muted-foreground">
-                <div className="flex items-center gap-1">
+              <div className="flex flex-col sm:flex-row gap-8 mt-8 text-sm">
+                <div className="flex items-center gap-2">
                   <Check className="size-4 text-green-600" />
                   <span>Garantía incluida</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-2">
                   <Check className="size-4 text-green-600" />
                   <span>Trato personalizado</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-2">
                   <Check className="size-4 text-green-600" />
                   <span>Todas las marcas</span>
                 </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative mx-auto max-w-5xl"
-            >
-              <div className="absolute -bottom-6 -right-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-blue-600/30 to-green-600/30 blur-3xl opacity-70"></div>
-              <div className="absolute -top-6 -left-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-green-600/30 to-blue-600/30 blur-3xl opacity-70"></div>
-            </motion.div>
-          </div>
-        </section>
-
-        <section className="w-full py-16 md:py-20 bg-background">
-          <div className="container px-4 md:px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="text-center max-w-3xl mx-auto"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                ¿Tu equipo necesita atención?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Contáctanos para un diagnóstico gratuito y descubre cómo podemos ayudarte
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
-                  onClick={() =>
-                    window.open(
-                      generateWhatsAppLink(
-                        "¡Hola! Me gustaría solicitar un diagnóstico gratuito para mi equipo. ¿Cuándo podríamos coordinar?",
-                      ),
-                      "_blank",
-                    )
-                  }
-                >
-                  Solicitar Diagnóstico
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full h-12 px-8 text-base bg-transparent"
-                  onClick={scrollToPlans}
-                >
-                  Ver Planes de Mantenimiento
-                </Button>
               </div>
             </motion.div>
           </div>
@@ -718,170 +719,22 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Banner: ¿Tu equipo necesita atención? */}
         <section className="w-full py-16 md:py-20 bg-background">
           <div className="container px-4 md:px-6">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 mb-16">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                {[
-                  { number: "500+", label: "Equipos Reparados", color: "text-blue-600" },
-                  { number: "98%", label: "Satisfacción", color: "text-green-600" },
-                  { number: "24h", label: "Tiempo Promedio", color: "text-purple-600" },
-                  { number: "5★", label: "Calificación", color: "text-orange-600" },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="text-center"
-                  >
-                    <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}>{stat.number}</div>
-                    <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-8"
-            >
-              <h3 className="text-2xl font-bold mb-6 text-foreground">Nuestros Valores</h3>
-              <div className="flex flex-wrap justify-center gap-3">
-                {["Honestidad", "Profesionalismo", "Compromiso", "Innovación", "Confianza"].map((value, i) => (
-                  <Badge
-                    key={i}
-                    className="px-4 py-2 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                    variant="secondary"
-                  >
-                    {value}
-                  </Badge>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        <section className="w-full py-20 md:py-32">
-          <div className="container px-4 md:px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
-            >
-              <Badge
-                className="rounded-full px-4 py-1.5 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                variant="secondary"
-              >
-                Testimonios
-              </Badge>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
-                Lo que dicen nuestros <span className="text-blue-600">clientes</span>
-              </h2>
-              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                Experiencias reales, resultados medibles
-              </p>
-            </motion.div>
-
-            <div className="grid gap-6 md:grid-cols-3 mb-16">
-              {[
-                {
-                  quote: "Nos dejaron 20 PCs como nuevas. Bajó el ruido, bajó la temperatura y subió el rendimiento.",
-                  author: "Escuela Técnica N°3",
-                  role: "Lincoln, Buenos Aires",
-                  rating: 5,
-                  avatar: "E",
-                  badge: "Institución Educativa",
-                  badgeColor: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-                },
-                {
-                  quote: "Respuesta clara y rápida. El plan 'Rendimiento Óptimo' nos ahorró horas de soporte.",
-                  author: "PyME Metalúrgica",
-                  role: "Zona Oeste",
-                  rating: 5,
-                  avatar: "P",
-                  badge: "Empresa",
-                  badgeColor: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-                },
-                {
-                  quote: "Detectaron fallas que no veíamos. Excelente informe y seguimiento.",
-                  author: "Instituto Privado",
-                  role: "AMBA",
-                  rating: 5,
-                  avatar: "I",
-                  badge: "Institución",
-                  badgeColor: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-                },
-              ].map((testimonial, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                >
-                  <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <div className="flex mb-4">
-                        {Array(testimonial.rating)
-                          .fill(0)
-                          .map((_, j) => (
-                            <Star key={j} className="size-4 text-yellow-500 fill-yellow-500" />
-                          ))}
-                      </div>
-                      <p className="text-lg mb-6 flex-grow italic">"{testimonial.quote}"</p>
-                      <div className="flex items-center gap-4 mt-auto pt-4 border-t border-border/40">
-                        <div
-                          className={`size-10 rounded-full ${i === 0 ? "bg-blue-600" : i === 1 ? "bg-green-600" : "bg-purple-600"} flex items-center justify-center text-white font-medium`}
-                        >
-                          {testimonial.avatar}
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium">{testimonial.author}</p>
-                          <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                          <Badge className={`mt-1 text-xs ${testimonial.badgeColor}`} variant="secondary">
-                            {testimonial.badge}
-                          </Badge>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="w-full py-16 md:py-20 bg-blue-50 dark:bg-blue-950/20">
-          <div className="container px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="text-center max-w-3xl mx-auto"
+              className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 md:p-12 text-center"
             >
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                ¿Quieres ser nuestro próximo cliente satisfecho?
+                ¿Tu equipo necesita atención?
               </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Únete a cientos de clientes que confían en nuestro servicio técnico profesional
+              <p className="text-lg text-muted-foreground mb-8">
+                Contáctanos para un diagnóstico gratuito y descubre cómo podemos ayudarte
               </p>
-              <div className="flex items-center justify-center gap-2 mb-8">
-                <div className="flex">
-                  {Array(5)
-                    .fill(0)
-                    .map((_, i) => (
-                      <Star key={i} className="size-5 text-yellow-500 fill-yellow-500" />
-                    ))}
-                </div>
-                <span className="text-lg font-semibold text-foreground">4.9/5 estrellas</span>
-                <span className="text-muted-foreground">100+ reseñas verificadas</span>
-              </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   size="lg"
@@ -889,228 +742,47 @@ export default function LandingPage() {
                   onClick={() =>
                     window.open(
                       generateWhatsAppLink(
-                        "¡Hola! Me gustaría solicitar un presupuesto para mis equipos. ¿Podrían ayudarme?",
+                        "¡Hola! Me gustaría solicitar un diagnóstico gratuito para mi equipo. ¿Cuándo podríamos coordinar?",
                       ),
                       "_blank",
                     )
                   }
                 >
-                  Solicitar Presupuesto
+                  Solicitar Diagnóstico
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   className="rounded-full h-12 px-8 text-base bg-transparent"
-                  onClick={() =>
-                    window.open(
-                      generateWhatsAppLink(
-                        "¡Hola! Me gustaría obtener más información sobre sus servicios y garantías.",
-                      ),
-                      "_blank",
-                    )
-                  }
+                  onClick={scrollToPlans}
                 >
-                  Más Información
+                  Ver Planes de Mantenimiento
                 </Button>
               </div>
             </motion.div>
           </div>
         </section>
 
-        <section id="planes" className="w-full py-20 md:py-32 bg-muted/30 relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_40%,transparent_100%)]"></div>
-
-          <div className="container px-4 md:px-6 relative">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
-            >
-              <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
-                Planes
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Planes de <span className="text-blue-600">Suscripción</span>
-              </h2>
-              <p className="max-w-[800px] text-muted-foreground md:text-lg">
-                Mantené tus equipos siempre en perfecto estado
-              </p>
-
-              <div className="flex items-center gap-2 bg-muted rounded-full p-1 mt-4">
-                <button className="px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-medium">Mensual</button>
-                <button className="px-4 py-2 rounded-full text-muted-foreground text-sm font-medium">Anual</button>
-              </div>
-            </motion.div>
-
-            <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
-              {[
-                {
-                  name: "Prevención Esencial",
-                  price: "$ 13.800",
-                  frequency: "Frecuencia: Trimestral",
-                  description: "Ideal para prevenir fallas y mantener equipos en buen estado",
-                  features: [
-                    "Limpieza interna y externa de PCs y notebooks",
-                    "Revisión física y cambio pasta térmica anual",
-                    "Actualizaciones de software y parches",
-                    "Informe de estado general de cada equipo",
-                  ],
-                  discounts: ["5 equipos: 5%", "10 equipos: 10%", "20+ equipos: 20%"],
-                  cta: "Seleccionar",
-                  icon: "💼",
-                },
-                {
-                  name: "Rendimiento Óptimo",
-                  price: "$ 37.600",
-                  frequency: "Frecuencia: Bimestral",
-                  description: "Perfecto para uso diario y máximo rendimiento",
-                  features: [
-                    "Todo lo del Plan Prevención Esencial",
-                    "Optimización de sistema operativo",
-                    "Mantenimiento preventivo de impresoras",
-                    "Reemplazo piezas menores sin costo",
-                    "Respaldo básico de información",
-                  ],
-                  discounts: ["5 equipos: 5%", "10 equipos: 10%", "20+ equipos: 20%"],
-                  cta: "Seleccionar",
-                  popular: true,
-                  icon: "⚡",
-                },
-                {
-                  name: "Soporte Total",
-                  price: "$ 95.800",
-                  frequency: "Frecuencia: Mensual + Asistencia Remota",
-                  description: "Para empresas que necesitan prioridad y mínima interrupción",
-                  features: [
-                    "Todo lo del Plan Rendimiento Óptimo",
-                    "Asistencia remota (3 intervenciones/mes)",
-                    "Respuesta prioritaria en menos de 24hs",
-                    "Monitoreo preventivo continuo",
-                  ],
-                  discounts: ["5 equipos: 5%", "10 equipos: 10%", "20+ equipos: 20%"],
-                  cta: "Seleccionar",
-                  icon: "🚀",
-                },
-              ].map((plan, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                >
-                  <Card
-                    className={`relative overflow-hidden h-full ${plan.popular ? "border-blue-600 shadow-lg" : "border-border/40 shadow-md"} bg-gradient-to-b from-background to-muted/10 backdrop-blur`}
-                  >
-                    {plan.popular && (
-                      <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 text-xs font-medium rounded-bl-lg">
-                        Recomendado
-                      </div>
-                    )}
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-2xl">{plan.icon}</span>
-                        <h3 className="text-2xl font-bold">{plan.name}</h3>
-                      </div>
-                      <div className="flex items-baseline mt-4">
-                        <span className="text-4xl font-bold">{plan.price}</span>
-                        <span className="text-muted-foreground ml-1">/mes por equipo</span>
-                      </div>
-                      <p className="text-sm text-blue-600 mt-1">{plan.frequency}</p>
-                      <p className="text-muted-foreground mt-2">{plan.description}</p>
-                      <ul className="space-y-3 my-6 flex-grow">
-                        {plan.features.map((feature, j) => (
-                          <li key={j} className="flex items-start">
-                            <Check className="mr-2 size-4 text-green-600 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="mb-4">
-                        <p className="text-xs font-medium text-foreground mb-2">Descuentos por volumen</p>
-                        {plan.discounts.map((discount, j) => (
-                          <p key={j} className="text-xs text-muted-foreground">
-                            {discount}
-                          </p>
-                        ))}
-                      </div>
-                      <Button
-                        className={`w-full mt-auto rounded-full ${plan.popular ? "bg-blue-600 hover:bg-blue-700" : "bg-foreground hover:bg-foreground/80 text-background"}`}
-                        onClick={() => addToCart(plan)}
-                      >
-                        {plan.popular && <Zap className="mr-2 size-4" />}
-                        {plan.cta}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8 mt-16">
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6">
-                <h3 className="text-xl font-bold mb-4">¿Necesitas un plan personalizado?</h3>
-                <p className="text-muted-foreground mb-4">
-                  Para empresas con más de 20 equipos o necesidades específicas, creamos planes a medida que se adapten
-                  perfectamente a tu negocio.
-                </p>
-                <Button
-                  variant="outline"
-                  className="rounded-full bg-transparent"
-                  onClick={() =>
-                    window.open(
-                      generateWhatsAppLink(
-                        "¡Hola! Necesito un plan personalizado para mi empresa. ¿Podrían ayudarme con una cotización específica?",
-                      ),
-                      "_blank",
-                    )
-                  }
-                >
-                  Consultar Plan Personalizado
-                </Button>
-              </div>
-
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6">
-                <h3 className="text-xl font-bold mb-4">Garantía de satisfacción</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2">
-                    <Check className="size-4 text-green-600" />
-                    <span className="text-sm">30 días de garantía en todos los trabajos</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="size-4 text-green-600" />
-                    <span className="text-sm">Cancelación sin penalidades</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="size-4 text-green-600" />
-                    <span className="text-sm">Soporte técnico incluido</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="size-4 text-green-600" />
-                    <span className="text-sm">Informes detallados de cada servicio</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="servicios" className="w-full py-20 md:py-32">
+        {/* Nuestros Servicios Section */}
+        <section id="servicios" className="w-full py-20 md:py-32 bg-background">
           <div className="container px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
+              viewport={{ once: true }}
+              className="text-center mb-12"
             >
-              <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
+              <Badge
+                className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                variant="secondary"
+              >
                 Servicios
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground mb-4">
                 Nuestros <span className="text-blue-600">Servicios</span>
               </h2>
-              <p className="max-w-[800px] text-muted-foreground md:text-lg">
+              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                 Soluciones completas para todos tus equipos tecnológicos
               </p>
             </motion.div>
@@ -1120,81 +792,142 @@ export default function LandingPage() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
             >
-              {[
-                {
-                  title: "Instalación Windows + Pack Office",
-                  description:
-                    "Tu computadora lista en menos de 24 horas. Instalación completa de Windows y Microsoft Office.",
-                  icon: <Monitor className="size-6" />,
-                  features: ["Windows 11 original", "Office 365", "Drivers actualizados", "Configuración optimizada"],
-                },
-                {
-                  title: "Servicio Técnico de Celulares",
-                  description:
-                    "Cambio de módulo, batería, pin de carga y lector de huella. Trabajamos con todas las marcas.",
-                  icon: <Smartphone className="size-6" />,
-                  features: ["Cambio de pantalla", "Reparación de batería", "Pin de carga", "Lector de huella"],
-                },
-                {
-                  title: "Armado de PC",
-                  description:
-                    "Instalación de sistema operativo, programas básicos, Microsoft Office y gestión de cableado profesional.",
-                  icon: <Monitor className="size-6" />,
-                  features: [
-                    "Selección de componentes",
-                    "Ensamblado profesional",
-                    "Cable management",
-                    "Testing completo",
-                  ],
-                },
-                {
-                  title: "Optimización",
-                  description:
-                    "Mejora de rendimiento, limpieza y mantenimiento del software, corrección de fallas en Windows.",
-                  icon: <Zap className="size-6" />,
-                  features: [
-                    "Limpieza de archivos",
-                    "Optimización de registro",
-                    "Actualización de drivers",
-                    "Mejora de velocidad",
-                  ],
-                },
-                {
-                  title: "Servicio de Impresoras",
-                  description: "Mantenimiento y reparación, cambio y reseteo de almohadillas, cambio de componentes.",
-                  icon: <Printer className="size-6" />,
-                  features: ["Limpieza de cabezales", "Cambio de cartuchos", "Reseteo de chips", "Calibración"],
-                },
-                {
-                  title: "Mantenimiento PC",
-                  description: "Revisión completa, limpieza detallada de componentes, cambio de pasta térmica CPU/GPU.",
-                  icon: <Wrench className="size-6" />,
-                  features: [
-                    "Limpieza interna",
-                    "Pasta térmica nueva",
-                    "Verificación de ventiladores",
-                    "Diagnóstico completo",
-                  ],
-                },
-              ].map((service, i) => (
+              {services.map((service, i) => (
                 <motion.div key={i} variants={item}>
-                  <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
+                  <Card className="relative overflow-hidden h-full border-border/40 shadow-md bg-gradient-to-b from-background to-muted/10 backdrop-blur">
                     <CardContent className="p-6 flex flex-col h-full">
-                      <div className="size-12 rounded-full bg-blue-600/10 dark:bg-blue-600/20 flex text-blue-600 items-center justify-center mb-4">
+                      <div className="flex items-center gap-3 mb-4">
                         {service.icon}
+                        <h3 className="text-xl font-bold">{service.title}</h3>
                       </div>
-                      <h3 className="text-xl font-bold mb-2 text-foreground">{service.title}</h3>
-                      <p className="text-muted-foreground mb-4">{service.description}</p>
-                      <ul className="space-y-2 mb-4 flex-grow">
-                        {service.features.map((feature, j) => (
-                          <li key={j} className="flex items-center gap-2">
-                            <Check className="size-4 text-green-600" />
-                            <span className="text-sm">{feature}</span>
-                          </li>
-                        ))}
+                      <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
+
+                      {/* Service-specific features */}
+                      <ul className="space-y-2 mb-6">
+                        {service.title === "Instalación Windows + Pack Office" && (
+                          <>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Windows 11 original
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Office 365
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Drivers actualizados
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Configuración optimizada
+                            </li>
+                          </>
+                        )}
+                        {service.title === "Servicio Técnico de Celulares" && (
+                          <>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Cambio de pantalla
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Reparación de batería
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Pin de carga
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Lector de huella
+                            </li>
+                          </>
+                        )}
+                        {service.title === "Armado de PC" && (
+                          <>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Selección de componentes
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Ensamblado profesional
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Cable management
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Testing completo
+                            </li>
+                          </>
+                        )}
+                        {service.title === "Optimización" && (
+                          <>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Limpieza de archivos
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Optimización de registro
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Actualización de drivers
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Mejora de velocidad
+                            </li>
+                          </>
+                        )}
+                        {service.title === "Servicio de Impresoras" && (
+                          <>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Limpieza de cabezales
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Cambio de cartuchos
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Reseteo de chips
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Calibración
+                            </li>
+                          </>
+                        )}
+                        {service.title === "Mantenimiento PC" && (
+                          <>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Limpieza interna
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Pasta térmica nueva
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Verificación de ventiladores
+                            </li>
+                            <li className="flex items-center text-sm">
+                              <Check className="mr-2 size-3 text-green-600" />
+                              Diagnóstico completo
+                            </li>
+                          </>
+                        )}
                       </ul>
+
                       <Button
                         variant="outline"
                         size="sm"
@@ -1214,6 +947,7 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Banner: ¿No encuentras lo que necesitas? */}
         <section className="w-full py-16 md:py-20 bg-blue-50 dark:bg-blue-950/20">
           <div className="container px-4 md:px-6">
             <motion.div
@@ -1221,7 +955,7 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="text-center max-w-3xl mx-auto mb-12"
+              className="text-center max-w-3xl mx-auto"
             >
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
                 ¿No encuentras lo que necesitas?
@@ -1247,6 +981,7 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Por qué elegirnos - Tres pilares */}
         <section id="nosotros" className="w-full py-20 md:py-32 bg-background relative overflow-hidden">
           <div className="container px-4 md:px-6 relative">
             <motion.div
@@ -1302,48 +1037,80 @@ export default function LandingPage() {
                 </motion.div>
               ))}
             </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 mt-16">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                {[
-                  { number: "500+", label: "Equipos Reparados", color: "text-blue-600" },
-                  { number: "98%", label: "Satisfacción", color: "text-green-600" },
-                  { number: "24h", label: "Tiempo Promedio", color: "text-purple-600" },
-                  { number: "5★", label: "Calificación", color: "text-orange-600" },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="text-center"
-                  >
-                    <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}>{stat.number}</div>
-                    <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
-        {/* Testimonials Section */}
-        <section className="w-full py-20 md:py-32">
+        {/* Banner: Estadísticas */}
+        <section className="w-full py-16 md:py-20 bg-background">
           <div className="container px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
+              viewport={{ once: true }}
+              className="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 md:p-12"
             >
-              <Badge
-                className="rounded-full px-4 py-1.5 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                variant="secondary"
-              >
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">500+</div>
+                  <div className="text-sm text-muted-foreground">Equipos Reparados</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold text-green-600 mb-2">98%</div>
+                  <div className="text-sm text-muted-foreground">Satisfacción</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold text-purple-600 mb-2">24h</div>
+                  <div className="text-sm text-muted-foreground">Tiempo Promedio</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold text-orange-600 mb-2">5★</div>
+                  <div className="text-sm text-muted-foreground">Calificación</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Nuestros Valores */}
+        <section className="w-full py-16 md:py-20 bg-background">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">Nuestros Valores</h2>
+              <div className="flex flex-wrap justify-center gap-4">
+                {["Honestidad", "Profesionalismo", "Compromiso", "Innovación", "Confianza"].map((value, i) => (
+                  <Badge
+                    key={i}
+                    className="px-4 py-2 text-sm bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                  >
+                    {value}
+                  </Badge>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Testimonios */}
+        <section className="w-full py-20 md:py-32 bg-background">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <Badge className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
                 Testimonios
               </Badge>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground mb-4">
                 Lo que dicen nuestros <span className="text-blue-600">clientes</span>
               </h2>
               <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
@@ -1351,25 +1118,31 @@ export default function LandingPage() {
               </p>
             </motion.div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-3 max-w-6xl mx-auto">
               {[
                 {
-                  quote: "Nos dejaron 20 PCs como nuevas. Bajó el ruido, bajó la temperatura y subió el rendimiento.",
-                  author: "Escuela Técnica N°3",
-                  role: "Lincoln, Buenos Aires",
+                  name: "Escuela Técnica N°3",
+                  location: "Lincoln, Buenos Aires",
+                  type: "Institución Educativa",
                   rating: 5,
+                  comment: "Nos dejaron 20 PCs como nuevas. Bajó el ruido, bajó la temperatura y subió el rendimiento.",
+                  avatar: "E",
                 },
                 {
-                  quote: "Respuesta clara y rápida. El plan 'Rendimiento Óptimo' nos ahorró horas de soporte.",
-                  author: "PyME Metalúrgica",
-                  role: "Zona Oeste",
+                  name: "PyME Metalúrgica",
+                  location: "Zona Oeste",
+                  type: "Empresa",
                   rating: 5,
+                  comment: "Respuesta clara y rápida. El plan 'Rendimiento Óptimo' nos ahorró horas de soporte.",
+                  avatar: "P",
                 },
                 {
-                  quote: "Detectaron fallas que no veíamos. Excelente informe y seguimiento.",
-                  author: "Instituto Privado",
-                  role: "AMBA",
+                  name: "Instituto Privado",
+                  location: "AMBA",
+                  type: "Institución",
                   rating: 5,
+                  comment: "Detectaron fallas que no veíamos. Excelente informe y seguimiento.",
+                  avatar: "I",
                 },
               ].map((testimonial, i) => (
                 <motion.div
@@ -1377,25 +1150,26 @@ export default function LandingPage() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
                 >
-                  <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <div className="flex mb-4">
-                        {Array(testimonial.rating)
-                          .fill(0)
-                          .map((_, j) => (
-                            <Star key={j} className="size-4 text-yellow-500 fill-yellow-500" />
-                          ))}
+                  <Card className="h-full">
+                    <CardContent className="p-6">
+                      <div className="flex items-center mb-4">
+                        {[...Array(testimonial.rating)].map((_, j) => (
+                          <Star key={j} className="size-4 fill-yellow-400 text-yellow-400" />
+                        ))}
                       </div>
-                      <p className="text-lg mb-6 flex-grow">"{testimonial.quote}"</p>
-                      <div className="flex items-center gap-4 mt-auto pt-4 border-t border-border/40">
-                        <div className="size-10 rounded-full bg-muted flex items-center justify-center text-foreground font-medium">
-                          {testimonial.author.charAt(0)}
+                      <p className="text-muted-foreground mb-4 italic">"{testimonial.comment}"</p>
+                      <div className="flex items-center gap-3">
+                        <div className="size-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold">
+                          {testimonial.avatar}
                         </div>
                         <div>
-                          <p className="font-medium">{testimonial.author}</p>
-                          <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                          <div className="font-semibold">{testimonial.name}</div>
+                          <div className="text-sm text-muted-foreground">{testimonial.location}</div>
+                          <Badge variant="secondary" className="text-xs mt-1">
+                            {testimonial.type}
+                          </Badge>
                         </div>
                       </div>
                     </CardContent>
@@ -1406,6 +1180,7 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Banner: ¿Quieres ser nuestro próximo cliente satisfecho? */}
         <section className="w-full py-16 md:py-20 bg-blue-50 dark:bg-blue-950/20">
           <div className="container px-4 md:px-6">
             <motion.div
@@ -1423,13 +1198,11 @@ export default function LandingPage() {
               </p>
               <div className="flex items-center justify-center gap-2 mb-8">
                 <div className="flex">
-                  {Array(5)
-                    .fill(0)
-                    .map((_, i) => (
-                      <Star key={i} className="size-5 text-yellow-500 fill-yellow-500" />
-                    ))}
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="size-5 fill-yellow-400 text-yellow-400" />
+                  ))}
                 </div>
-                <span className="text-lg font-semibold text-foreground">4.9/5 estrellas</span>
+                <span className="font-semibold">4.9/5 estrellas</span>
                 <span className="text-muted-foreground">100+ reseñas verificadas</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1439,7 +1212,7 @@ export default function LandingPage() {
                   onClick={() =>
                     window.open(
                       generateWhatsAppLink(
-                        "¡Hola! Me gustaría solicitar un presupuesto para mis equipos. ¿Podrían ayudarme?",
+                        "¡Hola! Me gustaría solicitar un presupuesto para el servicio técnico de mis equipos.",
                       ),
                       "_blank",
                     )
@@ -1467,7 +1240,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Pricing Section */}
+        {/* Planes de Suscripción */}
         <section id="planes" className="w-full py-20 md:py-32 bg-muted/30 relative overflow-hidden">
           <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_40%,transparent_100%)]"></div>
 
@@ -1475,114 +1248,169 @@ export default function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
             >
               <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
                 Planes
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Planes de Suscripción</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Planes de <span className="text-blue-600">Suscripción</span>
+              </h2>
               <p className="max-w-[800px] text-muted-foreground md:text-lg">
                 Mantené tus equipos siempre en perfecto estado
               </p>
+
+              <div className="flex items-center gap-2 bg-muted rounded-full p-1 mt-4">
+                <button
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${!isAnnual ? "bg-blue-600 text-white" : "text-muted-foreground hover:text-foreground"}`}
+                  onClick={() => setIsAnnual(false)}
+                >
+                  Mensual
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${isAnnual ? "bg-blue-600 text-white" : "text-muted-foreground hover:text-foreground"}`}
+                  onClick={() => setIsAnnual(true)}
+                >
+                  Anual
+                </button>
+                {isAnnual && (
+                  <Badge className="ml-2 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                    2 meses gratis
+                  </Badge>
+                )}
+              </div>
             </motion.div>
 
             <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
-              {[
-                {
-                  name: "Prevención Esencial",
-                  price: "$13.800",
-                  frequency: "Trimestral",
-                  description: "Ideal para prevenir fallas y mantener equipos en buen estado",
-                  features: [
-                    "Limpieza interna y externa de PCs y notebooks",
-                    "Revisión física y cambio pasta térmica anual",
-                    "Actualizaciones de software y parches",
-                    "Informe de estado general de cada equipo",
-                  ],
-                  cta: "Seleccionar",
-                  icon: "💼",
-                },
-                {
-                  name: "Rendimiento Óptimo",
-                  price: "$37.600",
-                  frequency: "Bimestral",
-                  description: "Perfecto para uso diario y máximo rendimiento",
-                  features: [
-                    "Todo lo del Plan Prevención Esencial",
-                    "Optimización de sistema operativo",
-                    "Mantenimiento preventivo de impresoras",
-                    "Reemplazo piezas menores sin costo",
-                    "Respaldo básico de información",
-                  ],
-                  cta: "Seleccionar",
-                  popular: true,
-                  icon: "⚡",
-                },
-                {
-                  name: "Soporte Total",
-                  price: "$95.800",
-                  frequency: "Mensual + Asistencia Remota",
-                  description: "Para empresas que necesitan prioridad y mínima interrupción",
-                  features: [
-                    "Todo lo del Plan Rendimiento Óptimo",
-                    "Asistencia remota (3 intervenciones/mes)",
-                    "Respuesta prioritaria en menos de 24hs",
-                    "Monitoreo preventivo continuo",
-                  ],
-                  cta: "Seleccionar",
-                  icon: "🚀",
-                },
-              ].map((plan, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                >
-                  <Card
-                    className={`relative overflow-hidden h-full ${plan.popular ? "border-blue-600 shadow-lg" : "border-border/40 shadow-md"} bg-gradient-to-b from-background to-muted/10 backdrop-blur`}
+              {plans.map((plan, i) => {
+                const currentPrice = isAnnual ? plan.annualPrice : plan.monthlyPrice
+                const savings = isAnnual ? Math.round((plan.monthlyPrice * 12 - plan.annualPrice) / 1000) * 1000 : 0
+
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
                   >
-                    {plan.popular && (
-                      <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 text-xs font-medium rounded-bl-lg">
-                        Recomendado
-                      </div>
-                    )}
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-2xl">{plan.icon}</span>
-                        <h3 className="text-2xl font-bold">{plan.name}</h3>
-                      </div>
-                      <div className="flex items-baseline mt-4">
-                        <span className="text-4xl font-bold">{plan.price}</span>
-                        <span className="text-muted-foreground ml-1">/mes por equipo</span>
-                      </div>
-                      <p className="text-sm text-muted-foreground mt-1">Frecuencia: {plan.frequency}</p>
-                      <p className="text-muted-foreground mt-2">{plan.description}</p>
-                      <ul className="space-y-3 my-6 flex-grow">
-                        {plan.features.map((feature, j) => (
-                          <li key={j} className="flex items-start">
-                            <Check className="mr-2 size-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <p className="text-xs text-muted-foreground mb-4">
-                        Descuentos por volumen: 5 equipos (5%), 10 equipos (10%), 20+ equipos (20%)
-                      </p>
-                      <Button
-                        className={`w-full mt-auto rounded-full ${plan.popular ? "bg-blue-600 hover:bg-blue-700" : "bg-muted hover:bg-muted/80"}`}
-                        variant={plan.popular ? "default" : "outline"}
-                        onClick={() => addToCart(plan)}
-                      >
-                        {plan.cta}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                    <Card
+                      className={`relative overflow-hidden h-full ${plan.popular ? "border-blue-600 shadow-lg" : "border-border/40 shadow-md"} bg-gradient-to-b from-background to-muted/10 backdrop-blur`}
+                    >
+                      {plan.popular && (
+                        <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 text-xs font-medium rounded-bl-lg">
+                          Recomendado
+                        </div>
+                      )}
+                      <CardContent className="p-6 flex flex-col h-full">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-2xl">{plan.icon}</span>
+                          <h3 className="text-2xl font-bold">{plan.name}</h3>
+                        </div>
+                        <div className="flex items-baseline mt-4">
+                          <span className="text-4xl font-bold">$ {currentPrice.toLocaleString()}</span>
+                          <span className="text-muted-foreground ml-1">/mes por equipo</span>
+                        </div>
+                        {isAnnual && savings > 0 && (
+                          <p className="text-sm text-green-600 mt-1">Ahorras $ {savings.toLocaleString()} al año</p>
+                        )}
+                        <p className="text-sm text-muted-foreground mt-1">Frecuencia: {plan.frequency}</p>
+                        <p className="text-muted-foreground mt-2">{plan.description}</p>
+                        <ul className="space-y-3 my-6 flex-grow">
+                          {plan.features.map((feature, j) => (
+                            <li key={j} className="flex items-start">
+                              <Check className="mr-2 size-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                              <span className="text-sm">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="mb-4">
+                          <p className="text-xs font-semibold mb-2">Descuentos por volumen</p>
+                          <div className="grid grid-cols-3 gap-2 text-xs">
+                            <div className="text-center">
+                              <div className="text-blue-600 font-medium">5 equipos</div>
+                              <div className="text-green-600">5%</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-blue-600 font-medium">10 equipos</div>
+                              <div className="text-green-600">10%</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-blue-600 font-medium">20+ equipos</div>
+                              <div className="text-green-600">20%</div>
+                            </div>
+                          </div>
+                        </div>
+                        <Button
+                          className={`w-full mt-auto rounded-full ${plan.popular ? "bg-blue-600 hover:bg-blue-700" : "bg-muted hover:bg-muted/80"}`}
+                          variant={plan.popular ? "default" : "outline"}
+                          onClick={() =>
+                            addToCart({
+                              id: plan.name,
+                              name: plan.name,
+                              price: `$ ${currentPrice.toLocaleString()}`,
+                              frequency: plan.frequency,
+                            })
+                          }
+                        >
+                          {plan.cta}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Banner: ¿Necesitas un plan personalizado? */}
+        <section className="w-full py-16 md:py-20 bg-background">
+          <div className="container px-4 md:px-6">
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 md:p-12">
+              <div>
+                <h3 className="text-2xl font-bold mb-4">¿Necesitas un plan personalizado?</h3>
+                <p className="text-muted-foreground mb-6">
+                  Para empresas con más de 20 equipos o necesidades específicas, creamos planes a medida que se adapten
+                  perfectamente a tu negocio.
+                </p>
+                <Button
+                  variant="outline"
+                  className="rounded-full bg-transparent"
+                  onClick={() =>
+                    window.open(
+                      generateWhatsAppLink(
+                        "¡Hola! Necesito un plan personalizado para mi empresa. Tenemos más de 20 equipos y requerimientos específicos.",
+                      ),
+                      "_blank",
+                    )
+                  }
+                >
+                  Consultar Plan Personalizado
+                </Button>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-4">Garantía de satisfacción</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <Check className="mr-2 size-4 text-green-600" />
+                    <span>30 días de garantía en todos los trabajos</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="mr-2 size-4 text-green-600" />
+                    <span>Cancelación sin penalidades</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="mr-2 size-4 text-green-600" />
+                    <span>Soporte técnico incluido</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="mr-2 size-4 text-green-600" />
+                    <span>Informes detallados de cada servicio</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
@@ -1732,7 +1560,7 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="w-full py-20 md:py-32 bg-gradient-to-br from-blue-600 to-blue-700 text-white relative overflow-hidden">
+        <section className="w-full py-16 md:py-20 bg-gradient-to-br from-blue-600 to-blue-700 text-white relative overflow-hidden">
           <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
           <div className="absolute -top-24 -left-24 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
