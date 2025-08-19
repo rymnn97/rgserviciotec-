@@ -601,7 +601,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-4 mt-4">
                 <Button
                   size="lg"
-                  className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
+                  className="rounded-full text-base bg-green-600 hover:bg-green-700 leading-7 px-8 py-0 my-0 h-10"
                   onClick={() =>
                     window.open(
                       generateWhatsAppLink(
@@ -616,7 +616,7 @@ export default function LandingPage() {
                 </Button>
                 <Button
                   size="lg"
-                  className="rounded-full h-12 px-8 text-base bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                  className="rounded-full px-8 text-base bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 h-10"
                   onClick={() => window.open(generateInstagramDMLink(), "_blank")}
                 >
                   <Instagram className="mr-2 size-4" />
@@ -625,7 +625,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-full h-12 px-8 text-base bg-transparent"
+                  className="rounded-full px-8 text-base bg-transparent h-10"
                   onClick={scrollToPlans}
                 >
                   Ver Planes
@@ -738,7 +738,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   size="lg"
-                  className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
+                  className="rounded-full px-8 text-base bg-green-600 hover:bg-green-700 h-10"
                   onClick={() =>
                     window.open(
                       generateWhatsAppLink(
@@ -753,7 +753,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-full h-12 px-8 text-base bg-transparent"
+                  className="rounded-full px-8 text-base bg-transparent h-10"
                   onClick={scrollToPlans}
                 >
                   Ver Planes de Mantenimiento
@@ -965,7 +965,7 @@ export default function LandingPage() {
               </p>
               <Button
                 size="lg"
-                className="rounded-full h-12 px-8 text-base bg-blue-600 hover:bg-blue-700"
+                className="rounded-full px-8 text-base bg-blue-600 hover:bg-blue-700 h-11"
                 onClick={() =>
                   window.open(
                     generateWhatsAppLink(
@@ -1208,7 +1208,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   size="lg"
-                  className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
+                  className="rounded-full px-8 text-base bg-green-600 hover:bg-green-700 h-11"
                   onClick={() =>
                     window.open(
                       generateWhatsAppLink(
@@ -1223,7 +1223,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-full h-12 px-8 text-base bg-transparent"
+                  className="rounded-full px-8 text-base bg-transparent h-11"
                   onClick={() =>
                     window.open(
                       generateWhatsAppLink(
@@ -1503,7 +1503,7 @@ export default function LandingPage() {
                   </div>
                   <Button
                     size="lg"
-                    className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
+                    className="rounded-full px-8 text-base bg-green-600 hover:bg-green-700 h-10"
                     onClick={() => {
                       const nameInput = document.querySelector('input[placeholder="Tu nombre"]') as HTMLInputElement
                       const messageInput = document.querySelector(
@@ -1582,7 +1582,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="secondary"
-                  className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700 text-white border-0"
+                  className="rounded-full px-8 text-base bg-green-600 hover:bg-green-700 text-white border-0 h-11"
                   onClick={() =>
                     window.open(
                       generateWhatsAppLink(
@@ -1598,7 +1598,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="secondary"
-                  className="rounded-full h-12 px-8 text-base bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white border-0"
+                  className="rounded-full px-8 text-base bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white border-0 h-11"
                   onClick={() => window.open(generateInstagramDMLink(), "_blank")}
                 >
                   <Instagram className="mr-2 size-4" />
@@ -1607,7 +1607,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-full h-12 px-8 text-base bg-transparent border-white text-white hover:bg-white/10"
+                  className="rounded-full px-8 text-base bg-transparent border-white text-white hover:bg-white/10 h-11"
                   onClick={scrollToPlans}
                 >
                   Ver Planes
