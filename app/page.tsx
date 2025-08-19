@@ -783,7 +783,7 @@ export default function LandingPage() {
                 Nuestros <span className="text-blue-600">Servicios</span>
               </h2>
               <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                Soluciones completas para todos tus equipos tecnológicos
+                Soluciones completas para todos tus equipos
               </p>
             </motion.div>
 
@@ -958,7 +958,7 @@ export default function LandingPage() {
               className="text-center max-w-3xl mx-auto"
             >
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                ¿No encuentras lo que necesitas?
+                ¿No encontrás lo que necesitás?
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 Ofrecemos servicios personalizados para cualquier tipo de equipo o problema técnico
@@ -1191,10 +1191,10 @@ export default function LandingPage() {
               className="text-center max-w-3xl mx-auto"
             >
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                ¿Quieres ser nuestro próximo cliente satisfecho?
+                ¿Querés ser nuestro próximo cliente satisfecho?
               </h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Únete a cientos de clientes que confían en nuestro servicio técnico profesional
+                Unite a cientos de clientes que confían en nuestro servicio técnico profesional
               </p>
               <div className="flex items-center justify-center gap-2 mb-8">
                 <div className="flex">
@@ -1370,10 +1370,9 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6">
             <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 md:p-12">
               <div>
-                <h3 className="text-2xl font-bold mb-4">¿Necesitas un plan personalizado?</h3>
+                <h3 className="text-2xl font-bold mb-4">¿Necesitás un plan personalizado?</h3>
                 <p className="text-muted-foreground mb-6">
-                  Para empresas con más de 20 equipos o necesidades específicas, creamos planes a medida que se adapten
-                  perfectamente a tu negocio.
+                  Para empresas con más de 10 equipos o necesidades específicas, creamos planes a medida que se adapten perfectamente a tu negocio.
                 </p>
                 <Button
                   variant="outline"
@@ -1487,7 +1486,10 @@ export default function LandingPage() {
               </div>
 
               <Card className="p-6">
-                <h3 className="text-xl font-bold mb-4">Enviar Consulta</h3>
+                <h3 className="text-xl font-bold mb-4">Enviar Consulta
+
+
+</h3>
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium">Nombre</label>
