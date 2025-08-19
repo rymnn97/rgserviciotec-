@@ -631,7 +631,7 @@ export default function LandingPage() {
                   const imageIndex = i % carouselImages.length
                   return (
                     <div key={i} className="flex-shrink-0 w-80">
-                      <div className="bg-gray-800 dark:bg-gray-700 rounded-2xl p-4">
+                      <div className="dark:bg-gray-700 rounded-2xl p-4 px-1 py-1 opacity-100">
                         <Image
                           src={carouselImages[imageIndex] || "/placeholder.svg"}
                           width={320}
