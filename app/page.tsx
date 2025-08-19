@@ -382,7 +382,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-full h-12 px-8 text-base bg-transparent"
+                  className="rounded-full h-12 px-8 text-base bg-black"
                   onClick={scrollToPlans}
                 >
                   Ver Planes
@@ -475,7 +475,7 @@ export default function LandingPage() {
                           )
                         }
                       >
-                        Consultar por WhatsApp
+                        Más información
                       </Button>
                     </CardContent>
                   </Card>
