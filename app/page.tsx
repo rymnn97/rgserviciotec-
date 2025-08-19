@@ -540,7 +540,7 @@ export default function LandingPage() {
                 Servicio Técnico Profesional
               </Badge>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-foreground">
-                Hablemos de lo que necesita tu equipo
+                Hablemos de lo que necesita <span className="text-blue-600">tu equipo</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
                 Especialistas en reparación de PC, notebooks, consolas y celulares. Servicio técnico profesional con
@@ -581,15 +581,15 @@ export default function LandingPage() {
               </div>
               <div className="flex items-center justify-center gap-4 mt-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
-                  <Check className="size-4 text-blue-600" />
+                  <Check className="size-4 text-green-600" />
                   <span>Garantía incluida</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Check className="size-4 text-blue-600" />
+                  <Check className="size-4 text-green-600" />
                   <span>Trato personalizado</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Check className="size-4 text-blue-600" />
+                  <Check className="size-4 text-green-600" />
                   <span>Todas las marcas</span>
                 </div>
               </div>
@@ -607,6 +607,49 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <section className="w-full py-16 md:py-20 bg-background">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center max-w-3xl mx-auto"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
+                ¿Tu equipo necesita atención?
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Contáctanos para un diagnóstico gratuito y descubre cómo podemos ayudarte
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  size="lg"
+                  className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
+                  onClick={() =>
+                    window.open(
+                      generateWhatsAppLink(
+                        "¡Hola! Me gustaría solicitar un diagnóstico gratuito para mi equipo. ¿Cuándo podríamos coordinar?",
+                      ),
+                      "_blank",
+                    )
+                  }
+                >
+                  Solicitar Diagnóstico
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full h-12 px-8 text-base bg-transparent"
+                  onClick={scrollToPlans}
+                >
+                  Ver Planes de Mantenimiento
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Gallery/Portfolio Section */}
         <section className="w-full py-20 md:py-32 bg-background">
           <div className="container px-4 md:px-6">
@@ -617,11 +660,18 @@ export default function LandingPage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground mb-4">
+              <Badge
+                className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                variant="secondary"
+              >
                 Trabajos Realizados
+              </Badge>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground mb-4">
+                Una muestra de nuestra <span className="text-blue-600">dedicación</span> y{" "}
+                <span className="text-blue-600">calidad</span>
               </h2>
               <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                Una muestra de nuestra dedicación y calidad
+                Cada trabajo es único y lo realizamos con la máxima atención al detalle
               </p>
             </motion.div>
 
@@ -646,6 +696,52 @@ export default function LandingPage() {
                 })}
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="w-full py-16 md:py-20 bg-background">
+          <div className="container px-4 md:px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+              {[
+                { number: "500+", label: "Equipos Reparados", color: "text-blue-600" },
+                { number: "98%", label: "Satisfacción", color: "text-green-600" },
+                { number: "24h", label: "Tiempo Promedio", color: "text-purple-600" },
+                { number: "5★", label: "Calificación", color: "text-orange-600" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="text-center"
+                >
+                  <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}>{stat.number}</div>
+                  <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-8"
+            >
+              <h3 className="text-2xl font-bold mb-6 text-foreground">Nuestros Valores</h3>
+              <div className="flex flex-wrap justify-center gap-3">
+                {["Honestidad", "Profesionalismo", "Compromiso", "Innovación", "Confianza"].map((value, i) => (
+                  <Badge
+                    key={i}
+                    className="px-4 py-2 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                    variant="secondary"
+                  >
+                    {value}
+                  </Badge>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -724,8 +820,6 @@ export default function LandingPage() {
             </motion.div>
 
             <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative">
-              
-
               {[
                 {
                   icon: <Clock className="size-8" />,
@@ -774,11 +868,14 @@ export default function LandingPage() {
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
             >
-              <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
+              <Badge
+                className="rounded-full px-4 py-1.5 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                variant="secondary"
+              >
                 Testimonios
               </Badge>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
-                Lo que dicen nuestros clientes
+                Lo que dicen nuestros <span className="text-blue-600">clientes</span>
               </h2>
               <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                 Experiencias reales, resultados medibles
@@ -837,6 +934,67 @@ export default function LandingPage() {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="w-full py-16 md:py-20 bg-blue-50 dark:bg-blue-950/20">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center max-w-3xl mx-auto"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
+                ¿Quieres ser nuestro próximo cliente satisfecho?
+              </h2>
+              <p className="text-lg text-muted-foreground mb-6">
+                Únete a cientos de clientes que confían en nuestro servicio técnico profesional
+              </p>
+              <div className="flex items-center justify-center gap-2 mb-8">
+                <div className="flex">
+                  {Array(5)
+                    .fill(0)
+                    .map((_, i) => (
+                      <Star key={i} className="size-5 text-yellow-500 fill-yellow-500" />
+                    ))}
+                </div>
+                <span className="text-lg font-semibold text-foreground">4.9/5 estrellas</span>
+                <span className="text-muted-foreground">100+ reseñas verificadas</span>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  size="lg"
+                  className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
+                  onClick={() =>
+                    window.open(
+                      generateWhatsAppLink(
+                        "¡Hola! Me gustaría solicitar un presupuesto para mis equipos. ¿Podrían ayudarme?",
+                      ),
+                      "_blank",
+                    )
+                  }
+                >
+                  Solicitar Presupuesto
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full h-12 px-8 text-base bg-transparent"
+                  onClick={() =>
+                    window.open(
+                      generateWhatsAppLink(
+                        "¡Hola! Me gustaría obtener más información sobre sus servicios y garantías.",
+                      ),
+                      "_blank",
+                    )
+                  }
+                >
+                  Más Información
+                </Button>
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -1068,6 +1226,39 @@ export default function LandingPage() {
                 </div>
               </Card>
             </div>
+          </div>
+        </section>
+
+        <section className="w-full py-16 md:py-20 bg-blue-50 dark:bg-blue-950/20">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center max-w-3xl mx-auto"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
+                ¿No encuentras lo que necesitas?
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Ofrecemos servicios personalizados para cualquier tipo de equipo o problema técnico
+              </p>
+              <Button
+                size="lg"
+                className="rounded-full h-12 px-8 text-base bg-blue-600 hover:bg-blue-700"
+                onClick={() =>
+                  window.open(
+                    generateWhatsAppLink(
+                      "¡Hola! Necesito un servicio personalizado para mi equipo. ¿Podrían ayudarme con una consulta específica?",
+                    ),
+                    "_blank",
+                  )
+                }
+              >
+                Consulta Personalizada
+              </Button>
+            </motion.div>
           </div>
         </section>
 
