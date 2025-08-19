@@ -26,8 +26,6 @@ import {
   Instagram,
   ShoppingCart,
   Trash2,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -210,8 +208,8 @@ export default function LandingPage() {
       >
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold">
-            <div className="size-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white">
-              <Image src="/rg-logo-technical-service.png" width={32} height={32} alt="RG Logo" className="rounded-lg" />
+            <div className="size-8 rounded-lg flex items-center justify-center">
+              <Image src="/logo-nuevo.png" width={32} height={32} alt="RG Logo" className="rounded-lg" />
             </div>
             <span>RG Servicio Técnico</span>
           </div>
@@ -498,77 +496,43 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="w-full py-20 md:py-32 bg-muted/30">
+        {/* Gallery/Portfolio Section */}
+        <section className="w-full py-20 md:py-32 bg-background">
           <div className="container px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
+              viewport={{ once: true }}
+              className="text-center mb-12"
             >
-              <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
-                Galería
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Nuestro Trabajo</h2>
-              <p className="max-w-[800px] text-muted-foreground md:text-lg">
-                Conocé nuestras instalaciones y algunos de nuestros trabajos
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white mb-4">
+                Trabajos Realizados
+              </h2>
+              <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
+                Una muestra de nuestra dedicación y calidad
               </p>
             </motion.div>
 
-            <div className="relative max-w-4xl mx-auto">
-              <div className="relative overflow-hidden rounded-xl">
-                <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
-                >
-                  {Array.from({ length: 20 }, (_, i) => {
-                    const imageIndex = i % carouselImages.length
-                    return (
-                      <div key={i} className="w-full flex-shrink-0">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+                {Array.from({ length: 20 }, (_, i) => {
+                  const imageIndex = i % carouselImages.length
+                  return (
+                    <div key={i} className="flex-shrink-0 w-80">
+                      <div className="bg-gray-800 rounded-2xl p-4">
                         <Image
                           src={carouselImages[imageIndex] || "/placeholder.svg"}
-                          width={800}
-                          height={500}
-                          alt={`Imagen del taller ${i + 1}`}
-                          className="w-full h-[500px] object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                          width={320}
+                          height={240}
+                          alt={`Trabajo realizado ${i + 1}`}
+                          className="w-full h-60 object-cover rounded-xl cursor-pointer hover:opacity-90 transition-opacity"
                           onClick={() => openImageModal(carouselImages[imageIndex])}
                         />
                       </div>
-                    )
-                  })}
-                </div>
-
-                {/* Carousel Controls */}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white hover:bg-black/70"
-                  onClick={prevImage}
-                >
-                  <ChevronLeft className="size-6" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white hover:bg-black/70"
-                  onClick={nextImage}
-                >
-                  <ChevronRight className="size-6" />
-                </Button>
-
-                {/* Carousel Indicators */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                  {carouselImages.map((_, i) => (
-                    <button
-                      key={i}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        i === currentImageIndex % carouselImages.length ? "bg-white" : "bg-white/50"
-                      }`}
-                      onClick={() => setCurrentImageIndex(i)}
-                    />
-                  ))}
-                </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -1063,8 +1027,8 @@ export default function LandingPage() {
           <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
             <div className="space-y-4">
               <div className="flex items-center gap-2 font-bold">
-                <div className="size-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white">
-                  RG
+                <div className="size-8 rounded-lg flex items-center justify-center">
+                  <Image src="/logo-nuevo.png" width={32} height={32} alt="RG Logo" className="rounded-lg" />
                 </div>
                 <span>RG Servicio Técnico</span>
               </div>
