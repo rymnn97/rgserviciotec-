@@ -117,7 +117,7 @@ export default function LandingPage() {
       price: plan.price,
       frequency: plan.frequency,
     }
-    setCartItems([...cartItems, newItem])
+    setCartItems([newItem]) // Replace existing items instead of adding
     setShowCart(true)
   }
 
@@ -126,11 +126,26 @@ export default function LandingPage() {
   }
 
   const generateCartWhatsAppMessage = () => {
-    let message = "¡Hola! Me interesa contratar los siguientes planes:\n\n"
-    cartItems.forEach((item, index) => {
-      message += `${index + 1}. ${item.name} - ${item.price}/mes (${item.frequency})\n`
-    })
-    message += "\n¿Podrían brindarme más información y ayudarme con la contratación?"
+    if (cartItems.length === 0) return ""
+
+    const item = cartItems[0]
+    let message = `¡Hola! Me interesa contratar el plan "${item.name}" por ${item.price}/mes.\n\n`
+
+    // Personalized message based on plan type
+    if (item.name.includes("Básico")) {
+      message +=
+        "Me gustaría saber más detalles sobre el mantenimiento preventivo mensual y qué incluye exactamente el servicio."
+    } else if (item.name.includes("Profesional")) {
+      message +=
+        "Necesito el servicio completo con soporte prioritario. ¿Podrían explicarme los beneficios del plan profesional?"
+    } else if (item.name.includes("Empresarial")) {
+      message +=
+        "Represento a una empresa y necesitamos el plan completo con soporte 24/7. ¿Pueden brindarme información sobre los SLA y garantías?"
+    } else {
+      message += "¿Podrían brindarme más información sobre este plan y sus beneficios?"
+    }
+
+    message += "\n\n¿Cuándo podríamos coordinar una consulta?"
     return message
   }
 
@@ -263,7 +278,7 @@ export default function LandingPage() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full"
+              className="rounded-full text-foreground hover:bg-accent"
               onClick={() => window.open("https://instagram.com/rgserviciotec", "_blank")}
             >
               <Instagram className="size-[18px]" />
@@ -273,7 +288,7 @@ export default function LandingPage() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full bg-green-600 hover:bg-green-700 text-white dark:bg-green-600 dark:hover:bg-green-700"
+              className="rounded-full text-foreground hover:bg-accent"
               onClick={() =>
                 window.open(
                   generateWhatsAppLink(
@@ -289,7 +304,7 @@ export default function LandingPage() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full relative"
+              className="rounded-full relative text-foreground hover:bg-accent"
               onClick={() => setShowCart(!showCart)}
             >
               <ShoppingCart className="size-[18px]" />
@@ -368,7 +383,7 @@ export default function LandingPage() {
             className="absolute top-16 right-4 w-80 bg-background/95 backdrop-blur-lg border rounded-lg shadow-lg z-50"
           >
             <div className="p-4">
-              <h3 className="font-bold mb-4">Carrito de Compras</h3>
+              <h3 className="font-bold mb-4 text-foreground">Carrito de Compras</h3>
               {cartItems.length === 0 ? (
                 <p className="text-muted-foreground">Tu carrito está vacío</p>
               ) : (
@@ -377,7 +392,7 @@ export default function LandingPage() {
                     {cartItems.map((item) => (
                       <div key={item.id} className="flex items-center justify-between p-2 border rounded">
                         <div className="flex-1">
-                          <p className="font-medium text-sm">{item.name}</p>
+                          <p className="font-medium text-sm text-foreground">{item.name}</p>
                           <p className="text-xs text-muted-foreground">
                             {item.price}/mes - {item.frequency}
                           </p>
@@ -388,7 +403,7 @@ export default function LandingPage() {
                       </div>
                     ))}
                   </div>
-                  <Button className="w-full bg-green-600 hover:bg-green-700" onClick={handleCheckout}>
+                  <Button className="w-full bg-green-600 hover:bg-green-700 text-white" onClick={handleCheckout}>
                     <MessageCircle className="mr-2 size-4" />
                     Finalizar por WhatsApp
                   </Button>
@@ -442,7 +457,7 @@ export default function LandingPage() {
               >
                 Servicio Técnico Profesional
               </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-foreground">
                 Hablemos de lo que necesita tu equipo
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
@@ -536,7 +551,7 @@ export default function LandingPage() {
                   const imageIndex = i % carouselImages.length
                   return (
                     <div key={i} className="flex-shrink-0 w-80">
-                      <div className="bg-gray-800 rounded-2xl p-4">
+                      <div className="bg-gray-800 dark:bg-gray-700 rounded-2xl p-4">
                         <Image
                           src={carouselImages[imageIndex] || "/placeholder.svg"}
                           width={320}
@@ -587,7 +602,7 @@ export default function LandingPage() {
                       <div className="size-10 rounded-full bg-blue-600/10 dark:bg-blue-600/20 flex text-blue-600 mr-px ml-px h-10 items-center gap-0 mb-2 px-0 py-0 w-10 border-0 flex-col justify-evenly">
                         {service.icon}
                       </div>
-                      <h3 className="text-xl font-bold mb-2">{service.title}</h3>
+                      <h3 className="text-xl font-bold mb-2 text-foreground">{service.title}</h3>
                       <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
                       <Button
                         variant="outline"
