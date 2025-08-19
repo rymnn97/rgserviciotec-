@@ -662,7 +662,7 @@ export default function LandingPage() {
                         onClick={() =>
                           window.open(
                             generateWhatsAppLink(
-                              `¡Hola! Me interesa el servicio de "${service.title}". ¿Podrían brindarme más información y presupuesto? Mi teléfono es [marca y modelo] y tiene el siguiente problema: [describir problema].`,
+                              `¡Hola! Me interesa el servicio de "${service.title}". ¿Podrían brindarme más información y presupuesto?`,
                             ),
                             "_blank",
                           )
