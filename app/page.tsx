@@ -1028,32 +1028,31 @@ export default function LandingPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium">Nombre</label>
-                    <input className="w-full mt-1 px-3 py-2 border border-border rounded-md" placeholder="Tu nombre" />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium">Teléfono</label>
                     <input
+                      id="contact-name"
                       className="w-full mt-1 px-3 py-2 border border-border rounded-md"
-                      placeholder="Tu teléfono"
+                      placeholder="Tu nombre"
                     />
                   </div>
                   <div>
                     <label className="text-sm font-medium">Mensaje</label>
                     <textarea
+                      id="contact-message"
                       className="w-full mt-1 px-3 py-2 border border-border rounded-md h-24"
                       placeholder="Describe tu consulta"
                     ></textarea>
                   </div>
                   <Button
                     className="w-full bg-green-600 hover:bg-green-700"
-                    onClick={() =>
-                      window.open(
-                        generateWhatsAppLink(
-                          "¡Hola! Me gustaría hacer una consulta sobre sus servicios técnicos. ¿Podrían ayudarme?",
-                        ),
-                        "_blank",
-                      )
-                    }
+                    onClick={() => {
+                      const nameInput = document.getElementById("contact-name") as HTMLInputElement
+                      const messageInput = document.getElementById("contact-message") as HTMLTextAreaElement
+                      const name = nameInput?.value || "Cliente"
+                      const message = messageInput?.value || "Consulta general"
+
+                      const customMessage = `Hola, soy ${name}. ${message}`
+                      window.open(generateWhatsAppLink(customMessage), "_blank")
+                    }}
                   >
                     <MessageCircle className="mr-2 size-4" />
                     Enviar por WhatsApp
