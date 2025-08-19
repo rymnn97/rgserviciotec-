@@ -60,6 +60,16 @@ export default function LandingPage() {
     "/trabajo-control-playstation-negro.jpg",
     "/trabajo-setup-gaming.jpg",
     "/trabajo-control-playstation-detalle.jpg",
+    "/trabajo-ventilador-laptop.jpg",
+    "/trabajo-diagnostico-sistema.jpg",
+    "/trabajo-control-camuflaje.jpg",
+    "/trabajo-puertos-laptop.jpg",
+    "/trabajo-interior-laptop.jpg",
+    "/trabajo-puertos-usb.jpg",
+    "/trabajo-diagnostico-rendimiento.jpg",
+    "/trabajo-ventilador-foxconn.jpg",
+    "/trabajo-ventiladores-sucios.jpg",
+    "/trabajo-control-camuflaje-blanco.jpg",
   ]
 
   useEffect(() => {
@@ -423,13 +433,16 @@ export default function LandingPage() {
           className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4"
           onClick={closeImageModal}
         >
-          <div className="relative max-w-4xl max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
             <Image
               src={selectedImage || "/placeholder.svg"}
-              width={800}
-              height={600}
+              width={1200}
+              height={900}
               alt="Imagen ampliada"
-              className="w-full h-auto rounded-lg"
+              className="max-w-full max-h-full w-auto h-auto object-contain rounded-lg"
             />
             <Button
               variant="ghost"
@@ -895,7 +908,6 @@ export default function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
             >
