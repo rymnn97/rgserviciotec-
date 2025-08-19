@@ -130,7 +130,7 @@ export default function LandingPage() {
     {
       title: "Instalación Windows + Pack Office",
       description: "Tu computadora lista en menos de 24 horas. Instalación completa de Windows y Microsoft Office.",
-      icon: <Monitor className="size-5" />,
+      icon: <Monitor className="size-5 border-0 mx-0 px-0 py-0" />,
     },
     {
       title: "Servicio Técnico de Celulares",
@@ -457,7 +457,7 @@ export default function LandingPage() {
                 <motion.div key={i} variants={item}>
                   <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
                     <CardContent className="p-6 flex flex-col h-full">
-                      <div className="size-10 rounded-full bg-blue-600/10 dark:bg-blue-600/20 flex items-center justify-center text-blue-600 gap-0 mb-2 mr-px ml-px px-px py-px h-10">
+                      <div className="size-10 rounded-full bg-blue-600/10 dark:bg-blue-600/20 flex text-blue-600 mr-px ml-px h-10 items-center gap-0 mb-2 px-0 py-0 w-10 border-0 flex-col justify-evenly">
                         {service.icon}
                       </div>
                       <h3 className="text-xl font-bold mb-2">{service.title}</h3>
