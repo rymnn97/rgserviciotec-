@@ -255,7 +255,7 @@ export default function LandingPage() {
               <Instagram className="size-[18px]" />
               <span className="sr-only">Instagram</span>
             </Button>
-            
+
             <Button
               variant="ghost"
               size="icon"
@@ -492,7 +492,6 @@ export default function LandingPage() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="relative mx-auto max-w-5xl"
             >
-              
               <div className="absolute -bottom-6 -right-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-blue-600/30 to-green-600/30 blur-3xl opacity-70"></div>
               <div className="absolute -top-6 -left-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-green-600/30 to-blue-600/30 blur-3xl opacity-70"></div>
             </motion.div>
@@ -956,9 +955,7 @@ export default function LandingPage() {
                       </button>
                     </div>
                   </div>
-                  <div className="pt-4">
-                    
-                  </div>
+                  <div className="pt-4"></div>
                 </div>
               </div>
 
@@ -1038,6 +1035,15 @@ export default function LandingPage() {
                 >
                   <MessageCircle className="mr-2 size-4" />
                   Contactar por WhatsApp
+                </Button>
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="rounded-full h-12 px-8 text-base bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white border-0"
+                  onClick={() => window.open(generateInstagramDMLink(), "_blank")}
+                >
+                  <Instagram className="mr-2 size-4" />
+                  Contactar por Instagram
                 </Button>
                 <Button
                   size="lg"
