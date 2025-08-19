@@ -261,6 +261,27 @@ export default function LandingPage() {
     },
   ]
 
+  const generateServiceWhatsAppMessage = (serviceTitle: string) => {
+    const messages = {
+      "Instalación Windows + Pack Office":
+        "¡Hola! Necesito instalar Windows y Office en mi computadora. ¿Cuánto tiempo demora y cuál es el costo del servicio?",
+      "Servicio Técnico de Celulares":
+        "¡Hola! Tengo un problema con mi celular y necesito reparación. ¿Podrían revisar qué tipo de reparación necesita y darme un presupuesto?",
+      "Armado de PC":
+        "¡Hola! Quiero armar una PC nueva. ¿Me pueden ayudar con el armado, instalación del sistema y configuración completa?",
+      Optimización:
+        "¡Hola! Mi computadora está muy lenta y tiene problemas de rendimiento. ¿Pueden hacer una optimización completa del sistema?",
+      "Servicio de Impresoras":
+        "¡Hola! Tengo problemas con mi impresora y necesito servicio técnico. ¿Podrían revisar qué reparación necesita?",
+      "Mantenimiento PC":
+        "¡Hola! Mi PC necesita mantenimiento y limpieza. ¿Incluye cambio de pasta térmica y limpieza completa de componentes?",
+    }
+    return (
+      messages[serviceTitle as keyof typeof messages] ||
+      `¡Hola! Me interesa el servicio de "${serviceTitle}". ¿Podrían brindarme más información y presupuesto?`
+    )
+  }
+
   return (
     <div className="flex min-h-[100dvh] flex-col">
       <header
@@ -588,10 +609,10 @@ export default function LandingPage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white mb-4">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground mb-4">
                 Trabajos Realizados
               </h2>
-              <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
+              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                 Una muestra de nuestra dedicación y calidad
               </p>
             </motion.div>
@@ -660,12 +681,7 @@ export default function LandingPage() {
                         size="sm"
                         className="w-full bg-transparent"
                         onClick={() =>
-                          window.open(
-                            generateWhatsAppLink(
-                              `¡Hola! Me interesa el servicio de "${service.title}". ¿Podrían brindarme más información y presupuesto?`,
-                            ),
-                            "_blank",
-                          )
+                          window.open(generateWhatsAppLink(generateServiceWhatsAppMessage(service.title)), "_blank")
                         }
                       >
                         Más información
