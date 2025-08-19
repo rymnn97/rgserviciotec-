@@ -1526,38 +1526,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="w-full py-16 md:py-20 bg-blue-50 dark:bg-blue-950/20">
-          <div className="container px-4 md:px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="text-center max-w-3xl mx-auto"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                ¿No encuentras lo que necesitas?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Ofrecemos servicios personalizados para cualquier tipo de equipo o problema técnico
-              </p>
-              <Button
-                size="lg"
-                className="rounded-full h-12 px-8 text-base bg-blue-600 hover:bg-blue-700"
-                onClick={() =>
-                  window.open(
-                    generateWhatsAppLink(
-                      "¡Hola! Necesito un servicio personalizado para mi equipo. ¿Podrían ayudarme con una consulta específica?",
-                    ),
-                    "_blank",
-                  )
-                }
-              >
-                Consulta Personalizada
-              </Button>
-            </motion.div>
-          </div>
-        </section>
+        
 
         {/* CTA Section */}
         <section className="w-full py-16 md:py-20 bg-gradient-to-br from-blue-600 to-blue-700 text-white relative overflow-hidden">
