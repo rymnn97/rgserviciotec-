@@ -966,13 +966,7 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <div className="pt-4">
-                    <Button
-                      className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
-                      onClick={() => window.open(generateInstagramDMLink(), "_blank")}
-                    >
-                      <Instagram className="mr-2 size-4" />
-                      Enviar mensaje por Instagram
-                    </Button>
+                    
                   </div>
                 </div>
               </div>
