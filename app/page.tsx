@@ -344,18 +344,16 @@ export default function LandingPage() {
 
             <Button
               variant="ghost"
-              size="icon"
-              className="rounded-full relative text-foreground hover:bg-accent"
+              size="sm"
+              className="text-foreground hover:text-foreground/80"
               onClick={() =>
                 window.open(
-                  generateWhatsAppLink(
-                    "¡Hola! Me interesa conocer más sobre sus servicios técnicos. ¿Podrían brindarme información?",
-                  ),
+                  generateWhatsAppLink("Hola, me gustaría obtener más información sobre sus servicios técnicos."),
                   "_blank",
                 )
               }
             >
-              <WhatsAppIcon className="size-[18px]" />
+              <WhatsAppIcon className="size-5" />
               <span className="sr-only">WhatsApp</span>
             </Button>
             <Button
@@ -461,7 +459,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <Button className="w-full bg-green-600 hover:bg-green-700 text-white" onClick={handleCheckout}>
-                    <WhatsAppIcon className="mr-2 size-4" />
+                    <WhatsAppIcon className="mr-2 size-5" />
                     Finalizar por WhatsApp
                   </Button>
                 </>
@@ -549,15 +547,13 @@ export default function LandingPage() {
                   className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
                   onClick={() =>
                     window.open(
-                      generateWhatsAppLink(
-                        "¡Hola! Vi su página web y me interesa conocer más sobre sus servicios técnicos. ¿Podrían ayudarme?",
-                      ),
+                      generateWhatsAppLink("Hola, me gustaría obtener más información sobre sus servicios técnicos."),
                       "_blank",
                     )
                   }
                 >
-                  <WhatsAppIcon className="mr-2 size-4" />
-                  Escríbenos por WhatsApp
+                  <WhatsAppIcon className="mr-2 size-5" />
+                  WhatsApp
                 </Button>
                 <Button
                   size="lg"
@@ -1061,7 +1057,7 @@ export default function LandingPage() {
                       window.open(generateWhatsAppLink(customMessage), "_blank")
                     }}
                   >
-                    <WhatsAppIcon className="mr-2 size-4" />
+                    <WhatsAppIcon className="mr-2 size-5" />
                     Enviar por WhatsApp
                   </Button>
                 </div>
@@ -1103,7 +1099,7 @@ export default function LandingPage() {
                     )
                   }
                 >
-                  <WhatsAppIcon className="mr-2 size-4" />
+                  <WhatsAppIcon className="mr-2 size-5" />
                   Contactar por WhatsApp
                 </Button>
                 <Button
