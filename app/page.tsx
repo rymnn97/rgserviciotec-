@@ -51,11 +51,15 @@ export default function LandingPage() {
   const [mounted, setMounted] = useState(false)
 
   const carouselImages = [
-    "/computer-repair-workshop.png",
-    "/laptop-repair.png",
-    "/smartphone-repair-tools.png",
-    "/printer-maintenance.png",
-    "/computer-hardware.png",
+    "/trabajo-ventilador-pc.jpg",
+    "/trabajo-interior-pc.jpg",
+    "/trabajo-reparacion-impresora.jpg",
+    "/trabajo-control-playstation-rojo.jpg",
+    "/trabajo-ventilador-pc-2.jpg",
+    "/trabajo-controles-playstation.jpg",
+    "/trabajo-control-playstation-negro.jpg",
+    "/trabajo-setup-gaming.jpg",
+    "/trabajo-control-playstation-detalle.jpg",
   ]
 
   useEffect(() => {
@@ -696,15 +700,18 @@ export default function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
             >
               <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
                 Testimonios
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Lo que dicen nuestros clientes</h2>
-              <p className="max-w-[800px] text-muted-foreground md:text-lg">Experiencias reales, resultados medibles</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+                Lo que dicen nuestros clientes
+              </h2>
+              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                Experiencias reales, resultados medibles
+              </p>
             </motion.div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
