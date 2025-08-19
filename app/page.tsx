@@ -26,6 +26,8 @@ import {
   Instagram,
   ShoppingCart,
   Trash2,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -44,8 +46,19 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [showCart, setShowCart] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [selectedImage, setSelectedImage] = useState("")
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+
+  const carouselImages = [
+    "/computer-repair-workshop.png",
+    "/laptop-repair.png",
+    "/smartphone-repair-tools.png",
+    "/printer-maintenance.png",
+    "/computer-hardware.png",
+  ]
 
   useEffect(() => {
     setMounted(true)
@@ -58,8 +71,16 @@ export default function LandingPage() {
     }
 
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+
+    const carouselInterval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length)
+    }, 3000)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      clearInterval(carouselInterval)
+    }
+  }, [carouselImages.length])
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
@@ -69,6 +90,10 @@ export default function LandingPage() {
     const phoneNumber = "5492355544386" // Argentina country code + number
     const encodedMessage = encodeURIComponent(message)
     return `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+  }
+
+  const generateInstagramDMLink = () => {
+    return "https://ig.me/m/rgserviciotec"
   }
 
   const addToCart = (plan: { name: string; price: string; frequency: string }) => {
@@ -109,6 +134,24 @@ export default function LandingPage() {
     if (planesSection) {
       planesSection.scrollIntoView({ behavior: "smooth" })
     }
+  }
+
+  const openImageModal = (imageSrc: string) => {
+    setSelectedImage(imageSrc)
+    setShowImageModal(true)
+  }
+
+  const closeImageModal = () => {
+    setShowImageModal(false)
+    setSelectedImage("")
+  }
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)
   }
 
   const container = {
@@ -168,7 +211,7 @@ export default function LandingPage() {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold">
             <div className="size-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white">
-              RG
+              <Image src="/rg-logo-technical-service.png" width={32} height={32} alt="RG Logo" className="rounded-lg" />
             </div>
             <span>RG Servicio Técnico</span>
           </div>
@@ -227,7 +270,9 @@ export default function LandingPage() {
               <span className="sr-only">Carrito</span>
             </Button>
             <Button
-              className="rounded-full bg-green-600 hover:bg-green-700"
+              variant="ghost"
+              size="icon"
+              className="rounded-full bg-green-600 hover:bg-green-700 text-white"
               onClick={() =>
                 window.open(
                   generateWhatsAppLink(
@@ -237,8 +282,8 @@ export default function LandingPage() {
                 )
               }
             >
-              <MessageCircle className="mr-2 size-4" />
-              WhatsApp
+              <MessageCircle className="size-[18px]" />
+              <span className="sr-only">WhatsApp</span>
             </Button>
           </div>
           <div className="flex items-center gap-4 md:hidden">
@@ -338,6 +383,32 @@ export default function LandingPage() {
           </motion.div>
         )}
       </header>
+
+      {showImageModal && (
+        <div
+          className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4"
+          onClick={closeImageModal}
+        >
+          <div className="relative max-w-4xl max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={selectedImage || "/placeholder.svg"}
+              width={800}
+              height={600}
+              alt="Imagen ampliada"
+              className="w-full h-auto rounded-lg"
+            />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-2 right-2 bg-black/50 text-white hover:bg-black/70"
+              onClick={closeImageModal}
+            >
+              <X className="size-4" />
+            </Button>
+          </div>
+        </div>
+      )}
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="w-full py-20 md:py-32 lg:py-40 overflow-hidden">
@@ -381,8 +452,18 @@ export default function LandingPage() {
                 </Button>
                 <Button
                   size="lg"
+                  className="rounded-full h-12 px-8 text-base bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                  onClick={() => window.open(generateInstagramDMLink(), "_blank")}
+                >
+                  <Instagram className="mr-2 size-4" />
+                  Escríbenos por Instagram
+                </Button>
+                <Button
+                  size="lg"
                   variant="outline"
-                  className="rounded-full h-12 px-8 text-base bg-black text-white"
+                  className={`rounded-full h-12 px-8 text-base ${
+                    theme === "dark" ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
+                  }`}
                   onClick={scrollToPlans}
                 >
                   Ver Planes
@@ -424,6 +505,82 @@ export default function LandingPage() {
               <div className="absolute -bottom-6 -right-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-blue-600/30 to-green-600/30 blur-3xl opacity-70"></div>
               <div className="absolute -top-6 -left-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-green-600/30 to-blue-600/30 blur-3xl opacity-70"></div>
             </motion.div>
+          </div>
+        </section>
+
+        <section className="w-full py-20 md:py-32 bg-muted/30">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
+            >
+              <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
+                Galería
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Nuestro Trabajo</h2>
+              <p className="max-w-[800px] text-muted-foreground md:text-lg">
+                Conocé nuestras instalaciones y algunos de nuestros trabajos
+              </p>
+            </motion.div>
+
+            <div className="relative max-w-4xl mx-auto">
+              <div className="relative overflow-hidden rounded-xl">
+                <div
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+                >
+                  {Array.from({ length: 20 }, (_, i) => {
+                    const imageIndex = i % carouselImages.length
+                    return (
+                      <div key={i} className="w-full flex-shrink-0">
+                        <Image
+                          src={carouselImages[imageIndex] || "/placeholder.svg"}
+                          width={800}
+                          height={500}
+                          alt={`Imagen del taller ${i + 1}`}
+                          className="w-full h-[500px] object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                          onClick={() => openImageModal(carouselImages[imageIndex])}
+                        />
+                      </div>
+                    )
+                  })}
+                </div>
+
+                {/* Carousel Controls */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white hover:bg-black/70"
+                  onClick={prevImage}
+                >
+                  <ChevronLeft className="size-6" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white hover:bg-black/70"
+                  onClick={nextImage}
+                >
+                  <ChevronRight className="size-6" />
+                </Button>
+
+                {/* Carousel Indicators */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  {carouselImages.map((_, i) => (
+                    <button
+                      key={i}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        i === currentImageIndex % carouselImages.length ? "bg-white" : "bg-white/50"
+                      }`}
+                      onClick={() => setCurrentImageIndex(i)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -808,6 +965,15 @@ export default function LandingPage() {
                       </button>
                     </div>
                   </div>
+                  <div className="pt-4">
+                    <Button
+                      className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                      onClick={() => window.open(generateInstagramDMLink(), "_blank")}
+                    >
+                      <Instagram className="mr-2 size-4" />
+                      Enviar mensaje por Instagram
+                    </Button>
+                  </div>
                 </div>
               </div>
 
@@ -862,7 +1028,6 @@ export default function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center justify-center space-y-6 text-center"
             >
