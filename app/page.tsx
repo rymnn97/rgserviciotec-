@@ -54,16 +54,17 @@ export default function LandingPage() {
 
   const carouselImages = [
     "/trabajo-ventilador-pc.jpg",
+    "/trabajo-ventilador-pc-2.jpg",
     "/trabajo-interior-pc.jpg",
     "/trabajo-reparacion-impresora.jpg",
     "/trabajo-control-playstation-rojo.jpg",
-    "/trabajo-ventilador-pc-2.jpg",
     "/trabajo-controles-playstation.jpg",
     "/trabajo-control-playstation-negro.jpg",
     "/trabajo-setup-gaming.jpg",
     "/trabajo-control-playstation-detalle.jpg",
     "/trabajo-ventilador-laptop.jpg",
     "/trabajo-diagnostico-sistema.jpg",
+    "/trabajo-control-camuflaje-blanco.jpg",
     "/trabajo-control-camuflaje.jpg",
     "/trabajo-puertos-laptop.jpg",
     "/trabajo-interior-laptop.jpg",
@@ -71,7 +72,6 @@ export default function LandingPage() {
     "/trabajo-diagnostico-rendimiento.jpg",
     "/trabajo-ventilador-foxconn.jpg",
     "/trabajo-ventiladores-sucios.jpg",
-    "/trabajo-control-camuflaje-blanco.jpg",
   ]
 
   useEffect(() => {
