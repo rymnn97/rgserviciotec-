@@ -255,20 +255,7 @@ export default function LandingPage() {
               <Instagram className="size-[18px]" />
               <span className="sr-only">Instagram</span>
             </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full relative"
-              onClick={() => setShowCart(!showCart)}
-            >
-              <ShoppingCart className="size-[18px]" />
-              {cartItems.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full size-5 flex items-center justify-center">
-                  {cartItems.length}
-                </span>
-              )}
-              <span className="sr-only">Carrito</span>
-            </Button>
+            
             <Button
               variant="ghost"
               size="icon"
@@ -284,6 +271,20 @@ export default function LandingPage() {
             >
               <MessageCircle className="size-[18px]" />
               <span className="sr-only">WhatsApp</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full relative"
+              onClick={() => setShowCart(!showCart)}
+            >
+              <ShoppingCart className="size-[18px]" />
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full size-5 flex items-center justify-center">
+                  {cartItems.length}
+                </span>
+              )}
+              <span className="sr-only">Carrito</span>
             </Button>
           </div>
           <div className="flex items-center gap-4 md:hidden">
@@ -491,17 +492,7 @@ export default function LandingPage() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="relative mx-auto max-w-5xl"
             >
-              <div className="rounded-xl overflow-hidden shadow-2xl border border-border/40 bg-gradient-to-b from-background to-muted/20">
-                <Image
-                  src="/computer-repair-workshop.png"
-                  width={1280}
-                  height={720}
-                  alt="Taller de reparación RG Servicio Técnico"
-                  className="w-full h-auto"
-                  priority
-                />
-                
-              </div>
+              
               <div className="absolute -bottom-6 -right-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-blue-600/30 to-green-600/30 blur-3xl opacity-70"></div>
               <div className="absolute -top-6 -left-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-green-600/30 to-blue-600/30 blur-3xl opacity-70"></div>
             </motion.div>
