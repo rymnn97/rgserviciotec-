@@ -382,7 +382,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-full h-12 px-8 text-base bg-black"
+                  className="rounded-full h-12 px-8 text-base bg-black text-white"
                   onClick={scrollToPlans}
                 >
                   Ver Planes
