@@ -23,15 +23,27 @@ import {
   MapPin,
   Mail,
   Phone,
+  Instagram,
+  ShoppingCart,
+  Trash2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { useTheme } from "next-themes"
 
+interface CartItem {
+  id: string
+  name: string
+  price: string
+  frequency: string
+}
+
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [showCart, setShowCart] = useState(false)
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -51,6 +63,52 @@ export default function LandingPage() {
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
+  }
+
+  const generateWhatsAppLink = (message: string) => {
+    const phoneNumber = "5492355544386" // Argentina country code + number
+    const encodedMessage = encodeURIComponent(message)
+    return `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+  }
+
+  const addToCart = (plan: { name: string; price: string; frequency: string }) => {
+    const newItem: CartItem = {
+      id: Date.now().toString(),
+      name: plan.name,
+      price: plan.price,
+      frequency: plan.frequency,
+    }
+    setCartItems([...cartItems, newItem])
+    setShowCart(true)
+  }
+
+  const removeFromCart = (id: string) => {
+    setCartItems(cartItems.filter((item) => item.id !== id))
+  }
+
+  const generateCartWhatsAppMessage = () => {
+    let message = "¡Hola! Me interesa contratar los siguientes planes:\n\n"
+    cartItems.forEach((item, index) => {
+      message += `${index + 1}. ${item.name} - ${item.price}/mes (${item.frequency})\n`
+    })
+    message += "\n¿Podrían brindarme más información y ayudarme con la contratación?"
+    return message
+  }
+
+  const handleCheckout = () => {
+    if (cartItems.length === 0) return
+    const message = generateCartWhatsAppMessage()
+    const whatsappLink = generateWhatsAppLink(message)
+    window.open(whatsappLink, "_blank")
+    setCartItems([]) // Clear cart after checkout
+    setShowCart(false)
+  }
+
+  const scrollToPlans = () => {
+    const planesSection = document.getElementById("planes")
+    if (planesSection) {
+      planesSection.scrollIntoView({ behavior: "smooth" })
+    }
   }
 
   const container = {
@@ -145,7 +203,40 @@ export default function LandingPage() {
               {mounted && theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />}
               <span className="sr-only">Toggle theme</span>
             </Button>
-            <Button className="rounded-full bg-green-600 hover:bg-green-700">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+              onClick={() => window.open("https://instagram.com/rgserviciotec", "_blank")}
+            >
+              <Instagram className="size-[18px]" />
+              <span className="sr-only">Instagram</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full relative"
+              onClick={() => setShowCart(!showCart)}
+            >
+              <ShoppingCart className="size-[18px]" />
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full size-5 flex items-center justify-center">
+                  {cartItems.length}
+                </span>
+              )}
+              <span className="sr-only">Carrito</span>
+            </Button>
+            <Button
+              className="rounded-full bg-green-600 hover:bg-green-700"
+              onClick={() =>
+                window.open(
+                  generateWhatsAppLink(
+                    "¡Hola! Me interesa conocer más sobre sus servicios técnicos. ¿Podrían brindarme información?",
+                  ),
+                  "_blank",
+                )
+              }
+            >
               <MessageCircle className="mr-2 size-4" />
               WhatsApp
             </Button>
@@ -182,11 +273,67 @@ export default function LandingPage() {
                 Contacto
               </Link>
               <div className="flex flex-col gap-2 pt-2 border-t">
-                <Button className="rounded-full bg-green-600 hover:bg-green-700">
+                <Button
+                  variant="outline"
+                  className="rounded-full bg-transparent"
+                  onClick={() => window.open("https://instagram.com/rgserviciotec", "_blank")}
+                >
+                  <Instagram className="mr-2 size-4" />
+                  Instagram
+                </Button>
+                <Button
+                  className="rounded-full bg-green-600 hover:bg-green-700"
+                  onClick={() =>
+                    window.open(
+                      generateWhatsAppLink(
+                        "¡Hola! Me interesa conocer más sobre sus servicios técnicos. ¿Podrían brindarme información?",
+                      ),
+                      "_blank",
+                    )
+                  }
+                >
                   <MessageCircle className="mr-2 size-4" />
                   WhatsApp
                 </Button>
               </div>
+            </div>
+          </motion.div>
+        )}
+
+        {showCart && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-16 right-4 w-80 bg-background/95 backdrop-blur-lg border rounded-lg shadow-lg z-50"
+          >
+            <div className="p-4">
+              <h3 className="font-bold mb-4">Carrito de Compras</h3>
+              {cartItems.length === 0 ? (
+                <p className="text-muted-foreground">Tu carrito está vacío</p>
+              ) : (
+                <>
+                  <div className="space-y-3 mb-4">
+                    {cartItems.map((item) => (
+                      <div key={item.id} className="flex items-center justify-between p-2 border rounded">
+                        <div className="flex-1">
+                          <p className="font-medium text-sm">{item.name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {item.price}/mes - {item.frequency}
+                          </p>
+                        </div>
+                        <Button variant="ghost" size="icon" className="size-6" onClick={() => removeFromCart(item.id)}>
+                          <Trash2 className="size-3" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                  <Button className="w-full bg-green-600 hover:bg-green-700" onClick={handleCheckout}>
+                    <MessageCircle className="mr-2 size-4" />
+                    Finalizar por WhatsApp
+                  </Button>
+                </>
+              )}
             </div>
           </motion.div>
         )}
@@ -217,11 +364,27 @@ export default function LandingPage() {
                 garantía y trato personalizado.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700">
+                <Button
+                  size="lg"
+                  className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700"
+                  onClick={() =>
+                    window.open(
+                      generateWhatsAppLink(
+                        "¡Hola! Vi su página web y me interesa conocer más sobre sus servicios técnicos. ¿Podrían ayudarme?",
+                      ),
+                      "_blank",
+                    )
+                  }
+                >
                   <MessageCircle className="mr-2 size-4" />
                   Escríbenos por WhatsApp
                 </Button>
-                <Button size="lg" variant="outline" className="rounded-full h-12 px-8 text-base bg-transparent">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full h-12 px-8 text-base bg-transparent"
+                  onClick={scrollToPlans}
+                >
                   Ver Planes
                 </Button>
               </div>
@@ -299,8 +462,20 @@ export default function LandingPage() {
                       </div>
                       <h3 className="text-xl font-bold mb-2">{service.title}</h3>
                       <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
-                      <Button variant="outline" size="sm" className="w-full bg-transparent">
-                        Más información
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full bg-transparent"
+                        onClick={() =>
+                          window.open(
+                            generateWhatsAppLink(
+                              `¡Hola! Me interesa el servicio de "${service.title}". ¿Podrían brindarme más información y presupuesto?`,
+                            ),
+                            "_blank",
+                          )
+                        }
+                      >
+                        Consultar por WhatsApp
                       </Button>
                     </CardContent>
                   </Card>
@@ -553,6 +728,7 @@ export default function LandingPage() {
                       <Button
                         className={`w-full mt-auto rounded-full ${plan.popular ? "bg-blue-600 hover:bg-blue-700" : "bg-muted hover:bg-muted/80"}`}
                         variant={plan.popular ? "default" : "outline"}
+                        onClick={() => addToCart(plan)}
                       >
                         {plan.cta}
                       </Button>
@@ -620,6 +796,18 @@ export default function LandingPage() {
                       </p>
                     </div>
                   </div>
+                  <div className="flex items-start gap-3">
+                    <Instagram className="size-5 text-blue-600 mt-1" />
+                    <div>
+                      <p className="font-medium">Instagram</p>
+                      <button
+                        className="text-muted-foreground hover:text-blue-600 transition-colors"
+                        onClick={() => window.open("https://instagram.com/rgserviciotec", "_blank")}
+                      >
+                        @rgserviciotec
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -644,7 +832,17 @@ export default function LandingPage() {
                       placeholder="Describe tu consulta"
                     ></textarea>
                   </div>
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
+                  <Button
+                    className="w-full bg-green-600 hover:bg-green-700"
+                    onClick={() =>
+                      window.open(
+                        generateWhatsAppLink(
+                          "¡Hola! Me gustaría hacer una consulta sobre sus servicios técnicos. ¿Podrían ayudarme?",
+                        ),
+                        "_blank",
+                      )
+                    }
+                  >
                     <MessageCircle className="mr-2 size-4" />
                     Enviar por WhatsApp
                   </Button>
@@ -679,6 +877,14 @@ export default function LandingPage() {
                   size="lg"
                   variant="secondary"
                   className="rounded-full h-12 px-8 text-base bg-green-600 hover:bg-green-700 text-white border-0"
+                  onClick={() =>
+                    window.open(
+                      generateWhatsAppLink(
+                        "¡Hola! Estoy listo para mejorar el rendimiento de mi equipo. ¿Podrían ayudarme con sus servicios?",
+                      ),
+                      "_blank",
+                    )
+                  }
                 >
                   <MessageCircle className="mr-2 size-4" />
                   Contactar por WhatsApp
@@ -687,6 +893,7 @@ export default function LandingPage() {
                   size="lg"
                   variant="outline"
                   className="rounded-full h-12 px-8 text-base bg-transparent border-white text-white hover:bg-white/10"
+                  onClick={scrollToPlans}
                 >
                   Ver Planes
                 </Button>
@@ -710,11 +917,29 @@ export default function LandingPage() {
                 garantía.
               </p>
               <div className="flex gap-4">
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <button
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() =>
+                    window.open(
+                      generateWhatsAppLink("¡Hola! Me interesa contactarlos para conocer más sobre sus servicios."),
+                      "_blank",
+                    )
+                  }
+                >
                   <MessageCircle className="size-5" />
                   <span className="sr-only">WhatsApp</span>
-                </Link>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                </button>
+                <button
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => window.open("https://instagram.com/rgserviciotec", "_blank")}
+                >
+                  <Instagram className="size-5" />
+                  <span className="sr-only">Instagram</span>
+                </button>
+                <Link
+                  href="mailto:rgst369@gmail.com"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
                   <Mail className="size-5" />
                   <span className="sr-only">Email</span>
                 </Link>
