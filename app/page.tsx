@@ -434,7 +434,7 @@ export default function LandingPage() {
           onClick={closeImageModal}
         >
           <div
-            className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center"
+            className="relative max-w-[90vw] max-h-[90vh] md:max-w-[70vw] md:max-h-[80vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
@@ -442,7 +442,7 @@ export default function LandingPage() {
               width={1200}
               height={900}
               alt="Imagen ampliada"
-              className="max-w-full max-h-full w-auto h-auto object-contain rounded-lg"
+              className="max-w-full max-h-full w-auto h-auto object-contain rounded-lg md:max-w-[60vw] md:max-h-[70vh]"
             />
             <Button
               variant="ghost"
