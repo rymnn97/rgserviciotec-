@@ -74,9 +74,25 @@ export default function LandingPage() {
       setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length)
     }, 3000)
 
+    const horizontalCarouselInterval = setInterval(() => {
+      const carousel = document.querySelector(".horizontal-carousel")
+      if (carousel) {
+        const scrollAmount = 320 + 16 // width + gap
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" })
+
+        // Reset to beginning when reaching the end
+        if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 50) {
+          setTimeout(() => {
+            carousel.scrollTo({ left: 0, behavior: "smooth" })
+          }, 2000)
+        }
+      }
+    }, 4000)
+
     return () => {
       window.removeEventListener("scroll", handleScroll)
       clearInterval(carouselInterval)
+      clearInterval(horizontalCarouselInterval)
     }
   }, [carouselImages.length])
 
@@ -257,7 +273,7 @@ export default function LandingPage() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full hover:bg-green-700 text-white"
+              className="rounded-full bg-green-600 hover:bg-green-700 text-white dark:bg-green-600 dark:hover:bg-green-700"
               onClick={() =>
                 window.open(
                   generateWhatsAppLink(
@@ -515,7 +531,7 @@ export default function LandingPage() {
             </motion.div>
 
             <div className="max-w-6xl mx-auto">
-              <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+              <div className="horizontal-carousel flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
                 {Array.from({ length: 20 }, (_, i) => {
                   const imageIndex = i % carouselImages.length
                   return (
