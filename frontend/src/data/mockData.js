@@ -1,65 +1,125 @@
-// Mock data for RG Servicio Técnico website
+// Real data from RG Servicio Técnico website
 
 export const workImages = [
   {
     id: 1,
-    title: "Mantenimiento de ventilador PC",
-    description: "Limpieza y mantenimiento preventivo de ventiladores",
-    image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Ventilador PC",
+    description: "Mantenimiento y limpieza de ventiladores",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-ventilador-pc.jpg"
   },
   {
     id: 2,
-    title: "Reparación de componentes",
-    description: "Diagnóstico y reparación de hardware interno",
-    image: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Ventilador PC 2",
+    description: "Limpieza especializada de componentes",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-ventilador-pc-2.jpg"
   },
   {
     id: 3,
-    title: "Mantenimiento de laptop",
-    description: "Servicio completo de limpieza y optimización",
-    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Interior PC",
+    description: "Mantenimiento interno completo",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-interior-pc.jpg"
   },
   {
     id: 4,
-    title: "Reparación de impresoras",
-    description: "Mantenimiento y reparación de impresoras",
-    image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Reparación Impresora",
+    description: "Servicio técnico especializado en impresoras",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-reparacion-impresora.jpg"
   },
   {
     id: 5,
-    title: "Reparación de controles PlayStation",
-    description: "Servicio especializado en controles de gaming",
-    image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Control PlayStation Rojo",
+    description: "Reparación de controles gaming",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-control-playstation-rojo.jpg"
   },
   {
     id: 6,
-    title: "Setup gaming completo",
-    description: "Configuración y optimización de equipos gaming",
-    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Controles PlayStation",
+    description: "Múltiples reparaciones de controles",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-controles-playstation.jpg"
   },
   {
     id: 7,
-    title: "Diagnóstico de sistema",
-    description: "Análisis completo de rendimiento y errores",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Control PlayStation Negro",
+    description: "Reparación especializada gaming",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-control-playstation-negro.jpg"
   },
   {
     id: 8,
-    title: "Mantenimiento de puertos",
-    description: "Limpieza y reparación de conectores",
-    image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Setup Gaming",
+    description: "Configuración completa gaming",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-setup-gaming.jpg"
   },
   {
     id: 9,
-    title: "Instalación de componentes",
-    description: "Upgrade y instalación de nuevo hardware",
-    image: "https://images.unsplash.com/photo-1587202372616-b43abcc8d0df?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Control PlayStation Detalle",
+    description: "Detalle de reparación gaming",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-control-playstation-detalle.jpg"
   },
   {
     id: 10,
-    title: "Reparación especializada",
-    description: "Servicios técnicos avanzados",
-    image: "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=400&h=300&fit=crop"
+    title: "Trabajo realizado - Ventilador Laptop",
+    description: "Mantenimiento ventilador portátil",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-ventilador-laptop.jpg"
+  },
+  {
+    id: 11,
+    title: "Trabajo realizado - Diagnóstico Sistema",
+    description: "Diagnóstico completo de sistema",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-diagnostico-sistema.jpg"
+  },
+  {
+    id: 12,
+    title: "Trabajo realizado - Control Camuflaje Blanco",
+    description: "Reparación control edición especial",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-control-camuflaje-blanco.jpg"
+  },
+  {
+    id: 13,
+    title: "Trabajo realizado - Control Camuflaje",
+    description: "Servicio control camuflaje",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-control-camuflaje.jpg"
+  },
+  {
+    id: 14,
+    title: "Trabajo realizado - Puertos Laptop",
+    description: "Reparación puertos laptop",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-puertos-laptop.jpg"
+  },
+  {
+    id: 15,
+    title: "Trabajo realizado - Interior Laptop",
+    description: "Mantenimiento interno laptop",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-interior-laptop.jpg"
+  },
+  {
+    id: 16,
+    title: "Trabajo realizado - Puertos USB",
+    description: "Reparación puertos USB",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-puertos-usb.jpg"
+  },
+  {
+    id: 17,
+    title: "Trabajo realizado - Diagnóstico Rendimiento",
+    description: "Análisis rendimiento sistema",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-diagnostico-rendimiento.jpg"
+  },
+  {
+    id: 18,
+    title: "Trabajo realizado - Ventilador Foxconn",
+    description: "Mantenimiento ventilador específico",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-ventilador-foxconn.jpg"
+  },
+  {
+    id: 19,
+    title: "Trabajo realizado - Ventiladores Sucios",
+    description: "Limpieza ventiladores con suciedad",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-ventiladores-sucios.jpg"
+  },
+  {
+    id: 20,
+    title: "Trabajo realizado - Ventilador PC Final",
+    description: "Resultado final limpieza",
+    image: "https://rgserviciotecnico.netlify.app/trabajo-ventilador-pc.jpg"
   }
 ];
 
