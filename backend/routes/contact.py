@@ -18,7 +18,7 @@ async def create_contact_message(message: ContactMessageCreate, db = Depends(get
     """Create a new contact message"""
     try:
         message_obj = ContactMessage(**message.dict())
-        result = await db.contact_messages.insert_one(message_obj.dict())
+        result = await db.contact_messages.insert_one(message_obj.model_dump())
         
         if result.inserted_id:
             return message_obj
