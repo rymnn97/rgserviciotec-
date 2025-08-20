@@ -1,13 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { Badge } from "./ui/badge";
 import { Eye, ZoomIn } from "lucide-react";
-import { workImages } from "../data/mockData";
+import { apiService } from "../services/api";
 
 const WorkSection = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [workImages, setWorkImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchWorkImages = async () => {
+      try {
+        setLoading(true);
+        const data = await apiService.work.getAll();
+        setWorkImages(data);
+      } catch (err) {
+        setError("Error al cargar los trabajos realizados");
+        console.error("Error fetching work images:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWorkImages();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="trabajos" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Cargando trabajos realizados...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="trabajos" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-red-600">{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="trabajos" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/20">
