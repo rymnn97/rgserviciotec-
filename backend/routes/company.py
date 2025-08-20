@@ -31,7 +31,7 @@ async def update_company_info(info: CompanyInfo, db = Depends(get_database)):
     try:
         result = await db.company_info.replace_one(
             {},
-            info.dict(),
+            info.model_dump(),
             upsert=True
         )
         
