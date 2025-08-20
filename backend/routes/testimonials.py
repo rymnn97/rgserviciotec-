@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import List
 import os
-from ..models import Testimonial, TestimonialCreate
+from models import Testimonial, TestimonialCreate
 from motor.motor_asyncio import AsyncIOMotorClient
 
 router = APIRouter(prefix="/testimonials", tags=["testimonials"])
