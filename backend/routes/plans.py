@@ -45,8 +45,8 @@ async def subscribe_to_plan(subscription: PlanSubscriptionCreate, db = Depends(g
         if not plan:
             raise HTTPException(status_code=404, detail="Plan not found")
         
-        subscription_obj = PlanSubscription(**subscription.dict())
-        result = await db.plan_subscriptions.insert_one(subscription_obj.dict())
+        subscription_obj = PlanSubscription(**subscription.model_dump())
+        result = await db.plan_subscriptions.insert_one(subscription_obj.model_dump())
         
         if result.inserted_id:
             return subscription_obj
