@@ -1,11 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Star, Quote } from "lucide-react";
-import { testimonials } from "../data/mockData";
+import { apiService } from "../services/api";
 
 const TestimonialsSection = () => {
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        setLoading(true);
+        const data = await apiService.testimonials.getAll();
+        setTestimonials(data);
+      } catch (err) {
+        setError("Error al cargar testimonios");
+        console.error("Error fetching testimonials:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="testimonios" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Cargando testimonios...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="testimonios" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-red-600">{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="testimonios" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -108,10 +154,10 @@ const TestimonialsSection = () => {
                     <Star key={index} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <span className="text-sm text-gray-600 font-medium">4.9/5 estrellas</span>
+                <span className="text-sm text-gray-600 font-medium">5.0/5 estrellas</span>
               </div>
               <div className="text-sm text-gray-600">
-                <span className="font-semibold text-blue-600">100+</span> reseñas verificadas
+                <span className="font-semibold text-blue-600">{testimonials.length}+</span> reseñas verificadas
               </div>
             </div>
 

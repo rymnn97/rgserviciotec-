@@ -1,11 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { services } from "../data/mockData";
+import { apiService } from "../services/api";
 
 const ServicesSection = () => {
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setLoading(true);
+        const data = await apiService.services.getAll();
+        setServices(data);
+      } catch (err) {
+        setError("Error al cargar los servicios");
+        console.error("Error fetching services:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="servicios" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Cargando servicios...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="servicios" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-red-600">{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="servicios" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,6 +84,11 @@ const ServicesSection = () => {
                     {service.icon}
                   </div>
                   <div className="w-2 h-2 bg-blue-500 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
+                  {service.price_from && (
+                    <Badge variant="secondary" className="bg-green-100 text-green-700 text-xs">
+                      Desde ${service.price_from.toLocaleString()}
+                    </Badge>
+                  )}
                 </div>
                 <CardTitle className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
                   {service.title}
@@ -45,6 +96,11 @@ const ServicesSection = () => {
                 <CardDescription className="text-gray-600 leading-relaxed">
                   {service.description}
                 </CardDescription>
+                {service.duration && (
+                  <Badge variant="outline" className="text-xs mt-2 w-fit">
+                    ⏱️ {service.duration}
+                  </Badge>
+                )}
               </CardHeader>
 
               <CardContent className="relative">
