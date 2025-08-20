@@ -287,30 +287,30 @@ async def seed_database():
     
     # Insert services
     services = [Service(**service) for service in SERVICES_DATA]
-    await db.services.insert_many([service.dict() for service in services])
+    await db.services.insert_many([service.model_dump() for service in services])
     print(f"Inserted {len(services)} services")
     
     # Insert plans
     plans = [Plan(**plan) for plan in PLANS_DATA]
-    await db.plans.insert_many([plan.dict() for plan in plans])
+    await db.plans.insert_many([plan.model_dump() for plan in plans])
     print(f"Inserted {len(plans)} plans")
     
     # Insert testimonials
     testimonials = [Testimonial(**testimonial) for testimonial in TESTIMONIALS_DATA]
-    await db.testimonials.insert_many([testimonial.dict() for testimonial in testimonials])
+    await db.testimonials.insert_many([testimonial.model_dump() for testimonial in testimonials])
     print(f"Inserted {len(testimonials)} testimonials")
     
     # Insert work images
     work_images = [WorkImage(**work_image) for work_image in WORK_IMAGES_DATA]
-    await db.work_images.insert_many([work_image.dict() for work_image in work_images])
+    await db.work_images.insert_many([work_image.model_dump() for work_image in work_images])
     print(f"Inserted {len(work_images)} work images")
     
     # Insert company info
     company_info = CompanyInfo(**COMPANY_INFO_DATA)
-    await db.company_info.insert_one(company_info.dict())
+    await db.company_info.insert_one(company_info.model_dump())
     print("Inserted company info")
     
-    await client.close()
+    client.close()
     print("Database seeded successfully!")
 
 if __name__ == "__main__":
