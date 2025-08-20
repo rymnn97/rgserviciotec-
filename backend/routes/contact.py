@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import List
 import os
-from ..models import ContactMessage, ContactMessageCreate
+from models import ContactMessage, ContactMessageCreate
 from motor.motor_asyncio import AsyncIOMotorClient
 
 router = APIRouter(prefix="/contact", tags=["contact"])
