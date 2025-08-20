@@ -31,12 +31,12 @@ async def create_testimonial(testimonial: TestimonialCreate, db = Depends(get_da
         avatar = testimonial.name[0].upper() if testimonial.name else "U"
         
         testimonial_obj = Testimonial(
-            **testimonial.dict(),
+            **testimonial.model_dump(),
             avatar=avatar,
             approved=False  # Requires approval
         )
         
-        result = await db.testimonials.insert_one(testimonial_obj.dict())
+        result = await db.testimonials.insert_one(testimonial_obj.model_dump())
         
         if result.inserted_id:
             return testimonial_obj
