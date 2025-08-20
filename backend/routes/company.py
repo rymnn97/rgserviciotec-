@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 import os
-from ..models import CompanyInfo
+from models import CompanyInfo
 from motor.motor_asyncio import AsyncIOMotorClient
 
 router = APIRouter(prefix="/company", tags=["company"])
