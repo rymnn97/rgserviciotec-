@@ -2,9 +2,15 @@
 Seed data for RG Servicio Técnico database
 """
 from motor.motor_asyncio import AsyncIOMotorClient
+from dotenv import load_dotenv
+from pathlib import Path
 import os
 import asyncio
 from models import Service, Plan, Testimonial, WorkImage, CompanyInfo
+
+# Load environment variables
+ROOT_DIR = Path(__file__).parent
+load_dotenv(ROOT_DIR / '.env')
 
 # Real data from the website
 SERVICES_DATA = [
